@@ -1,0 +1,113 @@
+.add-game-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(circle at top left, rgba(236, 31, 66, 0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(236, 31, 66, 0.18), transparent 35%),
+        #0f1117;
+}
+
+.add-game-card {
+    width: 100%;
+    max-width: 520px;
+
+    background: rgba(20, 22, 31, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+
+    border-radius: 24px !important;
+
+    padding: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(236, 31, 66, 0.08);
+
+    backdrop-filter: blur(12px);
+}
+
+.add-game-card h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.add-game-card p {
+    color: #9ca3af;
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+}
+
+.login-input {
+    width: 100%;
+    height: 52px;
+
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+
+    border-radius: 14px !important;
+
+    color: white !important;
+
+    padding: 0 16px !important;
+
+    transition: all 0.25s ease;
+}
+
+.login-input::placeholder {
+    color: #9ca3af !important;
+}
+
+.login-input:focus {
+    background: rgba(255, 255, 255, 0.08) !important;
+
+    border-color: #ec1f42 !important;
+
+    box-shadow: 0 0 0 3px rgba(236, 31, 66, 0.2) !important;
+
+    outline: none !important;
+}
+
+.add-game-card button {
+    height: 52px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #ec1f42, #ff4d6d);
+
+    font-weight: 600;
+    font-size: 1rem;
+
+    transition: all 0.25s ease;
+}
+
+.add-game-card button:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(236, 31, 66, 0.35);
+}
+
+.input-error {
+    border: 1px solid #ff4d4f !important;
+
+    box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.15) !important;
+}
+
+@media (max-width: 576px) {
+    .add-game-card {
+        padding: 14px;
+    }
+
+    .add-game-card h2 {
+        font-size: 1.6rem;
+    }
+
+    .login-input {
+        height: 48px;
+    }
+}
