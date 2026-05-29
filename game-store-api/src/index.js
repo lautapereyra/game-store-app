@@ -15,11 +15,12 @@ try {
     app.use(cors());
     app.use(express.json())
     app.use(gameRoutes);
-    await sequelize.sync({ alter: true });
+    app.use(userRoutes);
+    await sequelize.sync({ force: true });
     app.listen(PORT);
 
     console.log(`Server listening on port ${PORT}`)
 
 } catch (error) {
-    console.log(`There was an error on initialization`)
+    console.log(error)
 }

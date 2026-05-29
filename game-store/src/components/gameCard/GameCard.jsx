@@ -3,7 +3,7 @@ import "./gameCard.css";
 import { useState } from 'react'
 import { Button } from "react-bootstrap";
 
-function GameCard({ game, addToCart, loggedIn }) {
+function GameCard({ game, addToCart, loggedIn, user }) {
 
     const [added, setAdded] = useState(false);
     const [error, setError] = useState(false);
@@ -45,6 +45,14 @@ function GameCard({ game, addToCart, loggedIn }) {
                     <button onClick={handleClick}>
                         Detalles
                     </button>
+                    {(user?.role === "ADMIN" || user?.role === "MODERATOR") && (
+                        <Button
+                            variant="danger"
+                            onClick={() => handleDelete(game.id)}
+                        >
+                            Eliminar Juego
+                        </Button>
+                    )}
                     <Button
                         variant="primary"
                         size="lg"

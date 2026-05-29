@@ -1,17 +1,23 @@
-import React, { useState } from 'react'
+// 🔹 IMPORTAMOS useEffect
+import React, { useEffect, useState } from 'react'
+
 import Navbar from '../../navbar/Navbar';
 import { Button, Badge } from 'react-bootstrap';
 import { useParams } from 'react-router';
+
 import './gamedetails.css'
 
 const GameDetails = ({ addToCart, loggedIn }) => {
 
   const { id } = useParams();
+
+  // 🔹 ESTADO DEL JUEGO
   const [game, setGame] = useState(null);
 
   const [added, setAdded] = useState(false);
   const [error, setError] = useState(false);
 
+  // 🔹 FETCH PARA TRAER EL JUEGO DESDE EL BACKEND
   useEffect(() => {
 
     fetch(`http://localhost:3000/games/${id}`)
@@ -21,9 +27,15 @@ const GameDetails = ({ addToCart, loggedIn }) => {
 
   }, [id]);
 
+  // 🔹 EVITA QUE ROMPA CUANDO game ES null
+  if (!game) {
+    return <h1>Cargando...</h1>;
+  }
+
   const handleAdd = () => {
 
     if (!loggedIn) {
+
       setError(true);
 
       setTimeout(() => {
@@ -69,6 +81,7 @@ const GameDetails = ({ addToCart, loggedIn }) => {
               <Badge bg="primary" className='mb-3'>
                 {game.genre}
               </Badge>
+
               <h1
                 style={{
                   fontSize: "3rem",
@@ -101,13 +114,12 @@ const GameDetails = ({ addToCart, loggedIn }) => {
                 >
                   Agregar al carrito
                 </Button>
+
                 {added && (
                   <p className="success-msg">
                     Agregado al carrito ✅
                   </p>
                 )}
-
-
 
                 <Button
                   variant="outline-light"
@@ -123,11 +135,13 @@ const GameDetails = ({ addToCart, loggedIn }) => {
                   Debes iniciar sesión ❌
                 </p>
               )}
+
             </div>
 
           </div>
 
         </div>
+
       </div>
     </>
   )
