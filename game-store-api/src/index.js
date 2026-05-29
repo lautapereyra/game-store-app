@@ -16,7 +16,7 @@ try {
     app.use(express.json())
     app.use(gameRoutes);
     app.use(userRoutes);
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     app.listen(PORT);
 
     console.log(`Server listening on port ${PORT}`)

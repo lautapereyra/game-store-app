@@ -11,13 +11,13 @@ const GameDetails = ({ addToCart, loggedIn }) => {
 
   const { id } = useParams();
 
-  // 🔹 ESTADO DEL JUEGO
+  // ESTADO DEL JUEGO
   const [game, setGame] = useState(null);
 
   const [added, setAdded] = useState(false);
   const [error, setError] = useState(false);
 
-  // 🔹 FETCH PARA TRAER EL JUEGO DESDE EL BACKEND
+  //FETCH PARA TRAER EL JUEGO DESDE EL BACKEND
   useEffect(() => {
 
     fetch(`http://localhost:3000/games/${id}`)

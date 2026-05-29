@@ -1,188 +1,222 @@
-import { set } from "animejs";
 import { useState } from "react";
-import { Button, Card, Col, Form, FormGroup, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Button, Card, Form, FormGroup } from "react-bootstrap";
+
 import "./addGame.css";
 
-const AddGame = ({gameData, onAddGame, isEditing = false}) => {
-    const [title, setTitle] = useState(gameData?.title);
-    const [description, setDescription] = useState(gameData?.description);
-    const [genre, setGenre] = useState(gameData?.genre);
-    const [rating, setRating] = useState(gameData?.rating);
-    const [platform, setPlatform] = useState(gameData?.platform);
-    const [price, setPrice] = useState(gameData?.price);
-    const [image, setImage] = useState(gameData?.image);
-    const [gameMode, setGameMode] = useState(gameData?.gameMode);
+const AddGame = () => {
 
-    /*const [errors, setErrors] = useState({});
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [genre, setGenre] = useState("");
+    const [rating, setRating] = useState("");
+    const [platform, setPlatform] = useState("");
+    const [price, setPrice] = useState("");
+    const [image, setImage] = useState("");
+    const [gameMode, setGameMode] = useState("");
 
-    const navigate = useNavigate();
+    // MENSAJE DE ÉXITO
+    const [success, setSuccess] = useState(false);
 
-    /*const titleRef = useRef(null);
-    const descriptionRef = useRef(null);
-    const genreRef = useRef(null);
-    const ratingRef = useRef(null);
-    const platformRef = useRef(null);
-    const priceRef = useRef(null);
-    const imageRef = useRef(null);
-    const gameModeRef = useRef(null);*/
+    // MENSAJE DE ERROR
+    const [error, setError] = useState(false);
 
-    const handleTitleChange = (event) => {
-        setTitle(event.target.value);
-    };
-    const handleDescriptionChange = (event) => {
-        setDescription(event.target.value);
-    };
-    const handleGenreChange = (event) => {
-        setGenre(event.target.value);
-    };
-    const handleRatingChange = (event) => {
-        setRating(event.target.value);
-    };
-    const handlePlatformChange = (event) => {
-        setPlatform(event.target.value);
-    };
-    const handlePriceChange = (event) => {
-        setPrice(event.target.value);
-    };
-    const handleImageChange = (event) => {
-        setImage(event.target.value);
-    };
-    const handleGameModeChange = (event) => {
-        setGameMode(event.target.value);
-    };
-    /*const handleSubmit = (event) => {
-    event.preventDefault();
-    };*/
+    const handleAddGame = async (event) => {
 
-    const handleAddGame = (event) => {
         event.preventDefault();
 
         const gameData = {
             title,
             description,
             genre,
-            rating: parseInt(rating, 10),
+            rating: parseFloat(rating),
             platform,
-            price,
+            price: parseFloat(price),
             image,
             gameMode,
         };
-        onAddGame(gameData);
-        setTitle("");
-        setDescription("");
-        setGenre("");
-        setRating("");
-        setPlatform("");
-        setPrice("");
-        setImage("");
-        setGameMode("");
+
+        try {
+
+            // POST AL BACKEND
+            const response = await fetch(
+                "http://localhost:3000/games",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+
+                    body: JSON.stringify(gameData),
+                }
+            );
+
+            // ERROR
+            if (!response.ok) {
+                throw new Error("Error al guardar juego");
+            }
+
+            // EXITO
+            setSuccess(true);
+
+            setTimeout(() => {
+                setSuccess(false);
+            }, 2000);
+
+            // LIMPIA FORMULARIO
+            setTitle("");
+            setDescription("");
+            setGenre("");
+            setRating("");
+            setPlatform("");
+            setPrice("");
+            setImage("");
+            setGameMode("");
+
+        } catch (error) {
+
+            console.error(error);
+
+            setError(true);
+
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
+        }
     };
 
-    const handleSavedGames = (event) => {
-        event.preventDefault();
+    return (
 
-        const gameData = {
-            title,
-            description,
-            genre,
-            rating: parseInt(rating, 10),
-            platform,
-            price,
-            image,
-            gameMode,
-        };
-    };
-  return (
         <div className="add-game-container">
-            <Card className="add-game-card">
-                <Card.Body>
-                    <h2>Agregar juego</h2>
-                    <p>Ingresa un juego para guardarlo</p>
 
-                    <Form onSubmit={isEditing ? handleSavedGames:handleAddGame}>
+            <Card className="add-game-card">
+
+                <Card.Body>
+
+                    <h2>Agregar juego</h2>
+
+                    <p>
+                        Ingresa un juego para guardarlo
+                    </p>
+
+                    <Form onSubmit={handleAddGame}>
+
                         <FormGroup className="mb-3">
+
                             <Form.Control
                                 type="text"
                                 placeholder="Título"
-                                onChange={handleTitleChange}
+                                onChange={(e) => setTitle(e.target.value)}
                                 value={title}
                             />
+
                         </FormGroup>
 
                         <FormGroup className="mb-3">
+
                             <Form.Control
                                 type="text"
                                 placeholder="Descripción"
-                                onChange={handleDescriptionChange}
+                                onChange={(e) => setDescription(e.target.value)}
                                 value={description}
                             />
+
                         </FormGroup>
 
                         <FormGroup className="mb-3">
+
                             <Form.Control
                                 type="text"
                                 placeholder="Género"
-                                onChange={handleGenreChange}
+                                onChange={(e) => setGenre(e.target.value)}
                                 value={genre}
                             />
+
                         </FormGroup>
 
                         <FormGroup className="mb-3">
+
                             <Form.Control
                                 type="number"
                                 max="10"
                                 min="1"
                                 placeholder="Rating"
-                                onChange={handleRatingChange}
+                                onChange={(e) => setRating(e.target.value)}
                                 value={rating}
                             />
+
                         </FormGroup>
 
                         <FormGroup className="mb-3">
+
                             <Form.Control
                                 type="text"
                                 placeholder="Plataforma"
-                                onChange={handlePlatformChange}
+                                onChange={(e) => setPlatform(e.target.value)}
                                 value={platform}
                             />
+
                         </FormGroup>
 
                         <FormGroup className="mb-3">
+
                             <Form.Control
                                 type="text"
                                 placeholder="Imagen (URL)"
-                                onChange={handleImageChange}
+                                onChange={(e) => setImage(e.target.value)}
                                 value={image}
                             />
+
                         </FormGroup>
 
                         <FormGroup className="mb-3">
+
                             <Form.Control
                                 type="number"
                                 placeholder="Precio"
-                                onChange={handlePriceChange}
+                                onChange={(e) => setPrice(e.target.value)}
                                 value={price}
                             />
+
                         </FormGroup>
 
                         <FormGroup className="mb-4">
+
                             <Form.Control
                                 type="text"
                                 placeholder="Modo de juego"
-                                onChange={handleGameModeChange}
+                                onChange={(e) => setGameMode(e.target.value)}
                                 value={gameMode}
                             />
+
                         </FormGroup>
 
                         <Button type="submit" className="w-100">
                             Guardar Juego
                         </Button>
+
                     </Form>
+
+                    {/* 🔹 MENSAJE DE ÉXITO */}
+                    {success && (
+                        <p className="mt-3 text-success">
+                            Juego guardado correctamente ✅
+                        </p>
+                    )}
+
+                    {/* 🔹 MENSAJE DE ERROR */}
+                    {error && (
+                        <p className="mt-3 text-danger">
+                            Error al guardar juego ❌
+                        </p>
+                    )}
+
                 </Card.Body>
+
             </Card>
+
         </div>
     );
 }
 
-export default AddGame
+export default AddGame;
