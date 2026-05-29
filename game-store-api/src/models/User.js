@@ -43,6 +43,11 @@ export const User = sequelize.define(
             allowNull: false,
         },
 
+        role: {
+            type: DataTypes.ENUM("USER", "MODERATOR", "ADMIN"),
+            allowNull: false,
+            defaultValue: "USER",
+        },
     },
     {
         timestamps: false,

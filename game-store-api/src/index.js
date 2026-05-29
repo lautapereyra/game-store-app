@@ -7,6 +7,7 @@ import "./models/Game.js"
 import "./models/User.js";
 
 import gameRoutes from './routes/games.routes.js'
+import userRoutes from './routes/users.routes.js';
 
 const app = express();
 
@@ -14,7 +15,7 @@ try {
     app.use(cors());
     app.use(express.json())
     app.use(gameRoutes);
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     app.listen(PORT);
 
     console.log(`Server listening on port ${PORT}`)
