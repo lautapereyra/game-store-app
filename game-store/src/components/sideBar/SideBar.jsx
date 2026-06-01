@@ -1,0 +1,96 @@
+import { useEffect, useState } from "react";
+import "./sideBar.css";
+
+function Sidebar({
+    selectedGenre,
+    setSelectedGenre,
+    search,
+    setSearch,
+}) {
+
+    // 🔹 ESTADO PARA LOS GÉNEROS QUE VIENEN DE LA BD
+    const [genres, setGenres] = useState([]);
+
+    // 🔹 FETCH PARA TRAER TODOS LOS JUEGOS
+    useEffect(() => {
+
+        fetch("http://localhost:3000/games")
+            .then((res) => res.json())
+            .then((data) => {
+
+                // 🔹 SACAMOS LOS GÉNEROS REPETIDOS
+                const uniqueGenres = [
+                    ...new Set(data.map((game) => game.genre))
+                ];
+
+                setGenres(uniqueGenres);
+            })
+            .catch((error) => console.error(error));
+
+    }, []);
+
+    return (
+        <div className="sidebar">
+
+            <h3 className="sidebar-title">
+                Filtros
+            </h3>
+
+            <div className="sidebar-section">
+
+                <label className="sidebar-label">
+                    Buscar
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Buscar juego..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="sidebar-input"
+                />
+
+            </div>
+
+            <div className="sidebar-section">
+
+                <label className="sidebar-label">
+                    Géneros
+                </label>
+
+                <div className="sidebar-genres">
+
+                    <button
+                        className={
+                            selectedGenre === ""
+                                ? "genre-btn active"
+                                : "genre-btn"
+                        }
+                        onClick={() => setSelectedGenre("")}
+                    >
+                        Todos
+                    </button>
+
+                    {genres.map((genre) => (
+                        <button
+                            key={genre}
+                            className={
+                                selectedGenre === genre
+                                    ? "genre-btn active"
+                                    : "genre-btn"
+                            }
+                            onClick={() => setSelectedGenre(genre)}
+                        >
+                            {genre}
+                        </button>
+                    ))}
+
+                </div>
+
+            </div>
+
+        </div>
+    );
+}
+
+export default Sidebar;

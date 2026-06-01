@@ -1,0 +1,169 @@
+body {
+    background:
+        radial-gradient(circle at top left,
+            rgba(59, 130, 246, 0.08),
+            transparent 35%),
+        radial-gradient(circle at bottom right,
+            rgba(14, 165, 233, 0.06),
+            transparent 35%),
+        linear-gradient(180deg,
+            #111827 0%,
+            #0f172a 50%,
+            #020617 100%);
+
+    background-attachment: fixed;
+    color: #f8fafc;
+}
+
+.users-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at 0% 100%, rgba(236, 31, 66, 0.18), transparent 40%),
+        radial-gradient(circle at 100% 0%, rgba(236, 31, 66, 0.12), transparent 35%),
+        linear-gradient(180deg,
+            #810707 0%,
+            #090909 45%,
+            #000000 100%);
+
+    padding: 40px 20px;
+}
+
+/* Contenedor principal */
+.users-container {
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    background: rgba(15, 23, 42, 0.65);
+
+    backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+/* Título */
+.users-title {
+    color: #f8fafc;
+
+    font-size: 2.3rem;
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 30px;
+}
+
+/* Tabla */
+.users-table {
+    margin-bottom: 0;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+
+.users-table thead th {
+    background: rgba(255, 255, 255, 0.04) !important;
+
+    color: #cbd5e1;
+
+    border: none;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 1px;
+}
+
+.users-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.users-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.users-table tbody tr:hover {
+    background: rgba(236, 31, 66, 0.08);
+
+    transition: 0.2s ease;
+}
+
+/* Acciones */
+.actions-container {
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+/* Select */
+.role-select {
+    background: rgba(255, 255, 255, 0.05);
+
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.role-select:focus {
+    border-color: #3b82f6;
+
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.15);
+}
+
+.role-select option {
+    background: #1a1a1a;
+
+    color: white;
+}
+
+/* Botón eliminar */
+.delete-btn {
+    background: #dc2626;
+
+    border: none;
+
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background: #ef4444;
+
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .users-container {
+        padding: 20px;
+    }
+
+    .users-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .actions-container {
+        flex-direction: column;
+    }
+
+    .role-select,
+    .delete-btn {
+        width: 100%;
+    }
+}
