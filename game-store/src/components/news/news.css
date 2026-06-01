@@ -1,0 +1,38 @@
+.news-section {
+    padding: 4rem 0;
+}
+
+.news-title {
+    text-align: left;
+    margin-bottom: 0.75rem;
+}
+
+.news-section h2 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.news-description {
+    text-align: left;
+    color: #b3b3b3;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 2.5rem 0;
+}
+
+.news-section .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 0;
+}
+
+.news-card-wrapper {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.news-card-wrapper:last-child {
+    border-bottom: none;
+}
