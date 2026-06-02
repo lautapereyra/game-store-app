@@ -9,13 +9,13 @@ import NotFound from './components/ui/notFound/NotFound'
 import Dashboard from './components/dashboard/Dashboard';
 import Catalog from './components/pages/catalog/Catalog';
 import AddGame from './components/pages/gameAdd/AddGame';
+import AddNews from './components/news/addNews/AddNews';
 import Register from './components/auth/register/Register';
 import Users from './components/pages/users/users';
-
 import Home from './components/pages/home/Home';
 import GameDetails from './components/pages/gameDetails/GameDetails';
-
 import Carrito from './components/pages/carrito/Carrito';
+import News from './components/news/News';
 
 
 
@@ -74,12 +74,15 @@ function App() {
           <Route path="/home/*" element={<Dashboard onLogOut={handleLogOut} user={user} />} />
           <Route path="/" element={<Navigate to="home" />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login onLogin={handleLogIn} user={user}/>} />
-          <Route path="/game/:id" element={<GameDetails addToCart={addToCart} loggedIn={loggedIn} user={user}/>} />
-          <Route path="/catalog/*" element={<Catalog addToCart={addToCart} loggedIn={loggedIn} user={user}/>} />
+          <Route path="/login" element={<Login onLogin={handleLogIn} user={user} />} />
+          <Route path="/game/:id" element={<GameDetails addToCart={addToCart} loggedIn={loggedIn} user={user} />} />
+          <Route path="/catalog/*" element={<Catalog addToCart={addToCart} loggedIn={loggedIn} user={user} />} />
           <Route path="/cart/*" element={<Carrito cart={cart} deleteGame={deleteGame} clearCart={clearCart} />} />
           <Route path="*" element={<NotFound />} />
-          <Route path= "/users" element={<Users/>}/>
+          <Route path="/users" element={<Users />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news/add" element={<AddNews />} />
+
         </Routes>
       </BrowserRouter>
     </div>

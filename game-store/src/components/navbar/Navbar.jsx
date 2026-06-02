@@ -31,6 +31,11 @@ const Navbar = () => {
                                 Juegos
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink to="/news" className="nav-link">
+                                noticias
+                            </NavLink>
+                        </li>
 
                     </ul>
 
@@ -90,6 +95,14 @@ const Navbar = () => {
                                         </button>
                                     </li>
 
+                                    <li>
+                                        <button
+                                            className="dropdown-item"
+                                            onClick={() => navigate("/news/add")}
+                                        >
+                                            Agregar Noticias
+                                        </button>
+                                    </li>
                                     <li>
                                         <button
                                             className="dropdown-item"

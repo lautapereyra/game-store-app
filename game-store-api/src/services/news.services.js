@@ -3,8 +3,7 @@ import { News } from '../models/News.js';
 export const findNews = async (req, res) => {
     try {
         const news = await News.findAll({
-            order: [["publishedAt", "DESC"]],
-            limit: 4
+            order: [["publishedAt", "DESC"]]
         });
 
         res.json(news);

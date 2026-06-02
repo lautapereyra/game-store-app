@@ -3,7 +3,7 @@ import Navbar from '../../navbar/Navbar';
 import Hero from '../hero/Hero';
 import TopRated from '../../topRated/TopRated';
 import Footer from '../../footer/Footer';
-import News from '../../news/News'
+import LatestNews from '../../news/latestNews/LatestNews'
 const Home = ({
     user,
     onLogout,
@@ -24,7 +24,7 @@ const Home = ({
                 addToCart={addToCart}
             />
 
-            <News />
+            <LatestNews />
 
             <Footer />
         </div>
