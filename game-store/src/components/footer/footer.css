@@ -1,37 +1,67 @@
 .footer {
-    background: #111;
+    position: relative;
+    background:
+        radial-gradient(circle at 0% 100%, rgba(0, 140, 255, 0.15), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(236, 31, 66, 0.12), transparent 60%),
+        linear-gradient(180deg, #050814 0%, #070b1a 100%);
+
     color: #fff;
-    padding: 40px 20px 20px;
-    margin-top: 50px;
+    padding: 50px 20px 20px;
+    margin-top: 0px;
+
+    border-top: 1px solid rgba(0, 140, 255, 0.12);
+
+    box-shadow:
+        0 -10px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Línea degradada superior */
+.footer::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(0, 140, 255, 0.5),
+            rgba(236, 31, 66, 0.5),
+            transparent);
 }
 
 .footer-container {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 40px;
     max-width: 1200px;
     margin: auto;
 }
 
 .footer-section {
     flex: 1;
-    min-width: 200px;
+    min-width: 220px;
 }
 
 .footer-title {
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ffffff;
 }
 
 .footer-subtitle {
-    margin-bottom: 10px;
-    color: #aaa;
+    margin-bottom: 15px;
+    color: #cbd6ff;
+    font-weight: 600;
 }
 
 .footer-text {
-    color: #ccc;
+    color: #9ca7c7;
     font-size: 14px;
+    line-height: 1.7;
 }
 
 .footer-links {
@@ -40,23 +70,26 @@
 }
 
 .footer-links li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .footer-links a {
-    color: #fff;
+    color: #cbd6ff;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .footer-links a:hover {
-    text-decoration: underline;
+    color: #ec1f42;
+    padding-left: 5px;
 }
 
 .footer-bottom {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
     text-align: center;
-    margin-top: 30px;
-    border-top: 1px solid #333;
-    padding-top: 15px;
+    color: #7f8bb1;
     font-size: 13px;
-    color: #888;
 }

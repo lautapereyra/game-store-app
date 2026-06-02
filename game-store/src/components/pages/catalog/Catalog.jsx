@@ -3,6 +3,7 @@ import Navbar from "../../navbar/Navbar";
 import "./catalog.css";
 import Sidebar from "../../sidebar/Sidebar";
 import { useEffect, useState } from "react";
+import Footer from "../../footer/Footer";
 
 function Catalog({ addToCart }) {
 
@@ -70,6 +71,7 @@ function Catalog({ addToCart }) {
 
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

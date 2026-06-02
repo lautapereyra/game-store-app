@@ -1,14 +1,9 @@
-/* =========================
-   CARRITO
-========================= */
+/* CARRITO */
 
 .cart-container {
     min-height: 100vh;
-
     padding: 50px 20px;
-
     color: white;
-
     background:
         radial-gradient(circle at top left,
             rgba(236, 31, 66, 0.16),
@@ -25,131 +20,88 @@
 }
 
 /* CONTENIDO CENTRADO */
-
 .cart-container>* {
     max-width: 1000px;
-
     margin-left: auto;
     margin-right: auto;
 }
 
-/* =========================
-   TITULO
-========================= */
+/* TITULO */
 
 .cart-container h2 {
     position: relative;
-
     text-align: center;
-
     font-size: 3rem;
-
     font-weight: 600;
-
     margin-bottom: 45px;
-
     color: white;
-
     text-shadow:
         0 0 18px rgba(236, 31, 66, 0.25);
 }
 
 .cart-container h2::after {
     content: "";
-
     position: absolute;
-
     left: 50%;
     bottom: -14px;
-
     transform: translateX(-50%);
-
     width: 110px;
     height: 4px;
-
     border-radius: 999px;
-
     background: #ec1f42;
-
     box-shadow:
         0 0 14px rgba(236, 31, 66, 0.45);
 }
 
-/* =========================
-   VACIO
-========================= */
+/* VACIO */
 
 .cart-container h3 {
     text-align: center;
-
     color: #cfcfcf;
-
     font-weight: 600;
 }
 
-/* =========================
-   ITEM
-========================= */
+/* ITEM */
 
 .cart-item {
     display: flex;
-
     align-items: center;
-
     gap: 22px;
-
     background:
         linear-gradient(180deg,
             rgba(18, 18, 18, 0.96) 0%,
             rgba(8, 8, 8, 0.98) 100%);
-
     border:
         1px solid rgba(255, 255, 255, 0.06);
-
     border-radius: 22px;
-
     padding: 18px;
-
     margin-bottom: 18px;
-
     transition:
         transform 0.25s ease,
         border-color 0.25s ease,
         box-shadow 0.25s ease;
-
     cursor: pointer;
 }
 
 .cart-item:hover {
     transform: translateY(-4px);
-
     border-color: rgba(236, 31, 66, 0.3);
-
     box-shadow:
         0 0 24px rgba(236, 31, 66, 0.1),
         0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
-/* =========================
-   IMAGEN
-========================= */
-
+/* IMAGEN*/
 .cart-item img {
     width: 150px;
-
     height: 90px;
-
     object-fit: cover;
-
     border-radius: 14px;
-
     border:
         1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* =========================
-   INFO
-========================= */
+/*INFO*/
 
 .cart-item-info {
     flex: 1;
@@ -157,116 +109,77 @@
 
 .cart-item-info h4 {
     font-size: 1.3rem;
-
     font-weight: 700;
-
     margin-bottom: 8px;
-
     color: white;
 }
 
 .cart-item-info p {
     margin: 0;
-
     font-size: 1.1rem;
-
     font-weight: 700;
-
     color: #ec1f42;
 }
 
-/* =========================
-   BOTON ELIMINAR
-========================= */
+/* BOTON ELIMINAR */
 
 .btn-remove {
     border: none;
-
     background:
         rgba(255, 255, 255, 0.06);
-
     color: white;
-
     padding: 10px 16px;
-
     border-radius: 12px;
-
     font-weight: 600;
-
     transition:
         all 0.25s ease;
 }
 
 .btn-remove:hover {
     background: #ec1f42;
-
     transform: translateY(-2px);
-
     box-shadow:
         0 10px 24px rgba(236, 31, 66, 0.3);
 }
 
-/* =========================
-   TOTAL
-========================= */
+/* TOTAL */
 
 .cart-total {
     margin-top: 40px;
-
     text-align: right;
-
     font-size: 2rem;
-
     font-weight: 800;
-
     color: #ec1f42;
-
     text-shadow:
         0 0 12px rgba(236, 31, 66, 0.25);
 }
 
-/* =========================
-   VACIAR CARRITO
-========================= */
+/* VACIAR CARRITO */
 
 .btn-clear {
     display: block;
-
     margin: 20px auto 0;
-
     border: none;
-
     padding: 12px 24px;
-
     border-radius: 14px;
-
     background: #ec1f42;
-
     color: white;
-
     font-size: 0.95rem;
-
     font-weight: 700;
-
     transition:
         all 0.25s ease;
 }
 
 .btn-clear:hover {
     background: #ff3156;
-
     transform: translateY(-2px);
-
     box-shadow:
         0 12px 28px rgba(236, 31, 66, 0.35);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 
 @media (max-width: 768px) {
-
     .cart-container {
         padding: 35px 15px;
     }
@@ -277,7 +190,6 @@
 
     .cart-item {
         flex-direction: column;
-
         align-items: flex-start;
     }
 
