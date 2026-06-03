@@ -59,8 +59,27 @@
     cursor: pointer;
     font-weight: 600;
     align-self: flex-start;
+    position: relative;
+    transition: color 0.25s ease;
+}
+
+.news-card-button::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 2px;
+    height: 2px;
+    background-color: #ff4d4d;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
 }
 
 .news-card-button:hover {
-    text-decoration: underline;
+    color: #ff6b6b;
+}
+
+.news-card-button:hover::after {
+    transform: scaleX(1);
 }

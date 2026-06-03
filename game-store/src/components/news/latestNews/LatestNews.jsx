@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import NewsCard from "../newsCard/NewsCard";
+import { useNavigate } from "react-router-dom";
 import "./latestNews.css";
 
 function LatestNews() {
     const [news, setNews] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://localhost:3000/news")
@@ -35,7 +37,7 @@ function LatestNews() {
                             key={item.id}
                             news={item}
                             onViewMore={(news) =>
-                                console.log("ver noticia", news)
+                                navigate(`/news/${news.id}`)
                             }
                         />
                     ))}

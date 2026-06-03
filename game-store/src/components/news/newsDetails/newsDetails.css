@@ -1,0 +1,134 @@
+.news-article {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(180deg,
+            #050814 0%,
+            #070b1a 100%);
+
+    color: white;
+}
+
+/* HERO */
+
+.news-hero {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+}
+
+.news-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(180deg,
+            rgba(0, 0, 0, 0.25) 0%,
+            rgba(0, 0, 0, 0.55) 60%,
+            rgba(5, 8, 20, 1) 100%);
+}
+
+.news-hero-content {
+    position: absolute;
+    bottom: 60px;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(1000px, 90%);
+}
+
+/* FUENTE */
+
+.news-category {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: #ec1f42;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+/* TITULO */
+
+.news-headline {
+    font-size: clamp(2.5rem, 5vw, 4.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+/* FECHA */
+.news-date {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+}
+
+/* CONTENIDO */
+.news-content-wrapper {
+    width: min(1000px, 90%);
+    margin: 0 auto;
+
+    padding-top: 60px;
+    padding-bottom: 100px;
+}
+
+.news-article-content {
+    color: #dbe2ef;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    max-width: 850px;
+    white-space: pre-line;
+}
+
+/* BOTON */
+.news-back-btn {
+    display: block;
+
+    margin-bottom: 30px;
+
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 0.95rem;
+
+    transition: all 0.25s ease;
+}
+
+.news-back-btn:hover {
+    color: #ec1f42;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .news-hero {
+        height: 55vh;
+    }
+
+    .news-headline {
+        font-size: 2.2rem;
+    }
+
+    .news-content-wrapper {
+        padding: 40px 20px 80px;
+    }
+
+    .news-article-content {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+}

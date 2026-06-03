@@ -16,6 +16,7 @@ import Home from './components/pages/home/Home';
 import GameDetails from './components/pages/gameDetails/GameDetails';
 import Carrito from './components/pages/carrito/Carrito';
 import News from './components/news/News';
+import NewsDetails from "./components/news/newsDetails/NewsDetails";
 
 
 
@@ -81,6 +82,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/users" element={<Users />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:id" element={<NewsDetails />} />
           <Route path="/news/add" element={<AddNews />} />
 
         </Routes>
