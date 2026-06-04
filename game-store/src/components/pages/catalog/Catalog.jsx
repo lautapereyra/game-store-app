@@ -42,8 +42,7 @@ function Catalog({ addToCart }) {
             <div className="catalog-container">
                 <div className="container">
 
-                    <div className="row">
-
+                    <div className="row g-5">
                         <div className="col-md-3">
                             <Sidebar
                                 selectedGenre={selectedGenre}
@@ -56,6 +55,9 @@ function Catalog({ addToCart }) {
                         <div className="col-md-9">
                             <h2 className="catalog-title">Catálogo de Juegos</h2>
 
+                            <p className="catalog-description">
+                                Explorá nuestra colección de juegos y encontrá nuevos títulos para sumar a tu biblioteca. Desde clásicos hasta los lanzamientos más recientes, hay opciones para todos los gustos.
+                            </p>
                             <div className="catalog-grid">
                                 {filteredGames.map((game) => (
                                     <GameCard

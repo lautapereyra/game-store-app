@@ -88,15 +88,18 @@
     pointer-events: none;
 }
 
-/* =========================
-   TITULO
-========================= */
+.col-md-9 {
+    margin-left: px;
+}
+
+/* TITULO*/
 
 .catalog-title {
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 12px;
+    margin-top: 100px;
 
-    text-align: center;
+    text-align: left;
     font-size: 2.8rem;
     font-weight: 700;
     letter-spacing: -1px;
@@ -108,22 +111,16 @@
         0 0 25px rgba(236, 31, 66, 0.15);
 }
 
-/* Línea decorativa */
-.catalog-title::after {
-    content: "";
+.catalog-description {
+    max-width: 700px;
+    margin: 0 0 50px 0;
 
-    display: block;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.75);
 
-    width: 120px;
-    height: 3px;
-
-    margin: 12px auto 0;
-
-    border-radius: 999px;
-
-    background: linear-gradient(90deg,
-            rgba(0, 140, 255, 0.9),
-            rgba(236, 31, 66, 0.9));
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.7;
 }
 
 /* =========================

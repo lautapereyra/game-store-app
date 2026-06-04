@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import "./newsCard.css";
 
-
 const NewsCard = ({ news, onViewMore }) => {
-    const navigate = useNavigate();
     return (
         <div className="news-card">
             <img

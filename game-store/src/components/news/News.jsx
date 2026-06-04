@@ -36,6 +36,10 @@ const News = () => {
                     Sección de Noticias
                 </h1>
 
+                <p className="news-page-description">
+                    Enterate de las últimas novedades del mundo gamer: lanzamientos, actualizaciones, torneos, anuncios y todo lo que está pasando en la industria.
+                </p>
+
                 <Row>
                     {news.map((item) => (
                         <Col lg={4} md={6} className="mb-4" key={item.id}>
@@ -54,7 +58,7 @@ const News = () => {
                                         {item.title}
                                     </Card.Title>
 
-                                    <Card.Subtitle className="mb-2 text-muted">
+                                    <Card.Subtitle className="text-muted">
                                         {item.source}
                                     </Card.Subtitle>
 

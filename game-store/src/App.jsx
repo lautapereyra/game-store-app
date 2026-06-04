@@ -18,6 +18,8 @@ import Carrito from './components/pages/carrito/Carrito';
 import News from './components/news/News';
 import NewsDetails from "./components/news/newsDetails/NewsDetails";
 
+import './App.css'
+
 
 
 function App() {
