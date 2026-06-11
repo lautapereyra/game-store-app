@@ -8,12 +8,7 @@ const Dashboard = ({
 }) => {
     return (
         <div>
-            <Home
-                user={user}
-                onLogout={onLogout}
-                games={games}
-                addToCart={addToCart}
-            />
+            <Home addToCart={addToCart} />
         </div>
     );
 };

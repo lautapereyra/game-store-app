@@ -1,12 +1,22 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../../auth/autProvider/AuthProvider";
 
-const Protected = ({ isSignedIn }) => {
-    if (!isSignedIn) {
-        return <Navigate to="/login" replace />;
+function Protected({ children, allowedRoles }) {
+    const { user, isLoggedIn } = useContext(AuthContext);
+
+    if (!isLoggedIn) {
+        return <Navigate to="/login" />;
     }
 
-    return <Outlet />;
-};
+    if (
+        allowedRoles &&
+        !allowedRoles.includes(user?.role)
+    ) {
+        return <Navigate to="/home" />;
+    }
+
+    return children;
+}
 
 export default Protected;
-

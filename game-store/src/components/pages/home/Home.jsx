@@ -19,10 +19,7 @@ const Home = ({
 
             <Hero />
 
-            <TopRated
-                games={games}
-                addToCart={addToCart}
-            />
+            <TopRated addToCart={addToCart} />
 
             <LatestNews />
 
