@@ -42,7 +42,6 @@
 }
 
 /* INPUT */
-
 .sidebar-input {
     width: 100%;
     padding: 12px 14px;
@@ -60,13 +59,11 @@
 .sidebar-input:focus {
     outline: none;
     border-color: #ec1f42;
-    box-shadow:
-        0 0 0 3px rgba(236, 31, 66, 0.15);
+    box-shadow: 0 0 0 3px rgba(236, 31, 66, 0.15);
     background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* GÉNEROS */
-
 .sidebar-genres {
     display: flex;
     flex-direction: column;
@@ -84,29 +81,34 @@
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.25s ease;
+    cursor: pointer;
 }
 
+/* hover limpio (sin degradados) */
 .genre-btn:hover {
     background-color: rgba(0, 140, 255, 0.08);
-    border-color: rgba(0, 140, 255, 0.25);
-    color: white;
-    transform: translateX(4px);
+    border-color: rgba(0, 140, 255, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 140, 255, 0.12);
 }
 
-/* ACTIVO */
-
-.genre-btn.active {
-    background:
-        linear-gradient(135deg,
-            rgba(0, 140, 255, 0.9),
-            rgba(236, 31, 66, 0.9));
-    border-color: transparent;
-    color: white;
+/* ESTADO ACTIVO FINAL (ROJO SÓLIDO) */
+.sidebar-genres .genre-btn.active {
+    background: #ec1f42 !important;
+    background-image: none !important;
+    border-color: #ec1f42 !important;
+    color: #ffffff !important;
     font-weight: 600;
-    box-shadow:
-        0 5px 20px rgba(236, 31, 66, 0.25);
+    box-shadow: none !important;
 }
 
+/* evita conflictos con estados globales */
+.genre-btn:focus,
+.genre-btn:active {
+    outline: none;
+    box-shadow: none;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .sidebar {
         position: static;

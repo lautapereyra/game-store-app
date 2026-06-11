@@ -1,0 +1,18 @@
+.dashboard {
+    min-height: 100vh;
+    background: #050814;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* línea base de contenido (la que estabas marcando en amarillo) */
+.dashboard-container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+
+    padding-left: 80px;
+    /* 👈 tu alineación global */
+    padding-right: 24px;
+}

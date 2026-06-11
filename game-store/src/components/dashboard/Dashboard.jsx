@@ -1,5 +1,5 @@
 import Home from '../pages/home/Home';
-
+import "./dashboard.css"
 const Dashboard = ({
     user,
     onLogout,
@@ -8,7 +8,9 @@ const Dashboard = ({
 }) => {
     return (
         <div>
-            <Home addToCart={addToCart} />
+            <div className="app-container">
+                <Home addToCart={addToCart} />
+            </div>
         </div>
     );
 };

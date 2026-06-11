@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navigate, BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './components/auth/autProvider/AuthProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
@@ -21,22 +23,33 @@ import EditNews from './components/news/editNews/EditNews';
 function App() {
   const [cart, setCart] = useState([]);
   const [loaded, setLoaded] = useState(false);
-
+  const { user } = useContext(AuthContext);
   useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
+    if (!user) {
+      setCart([]);
+      setLoaded(true);
+      return;
+    }
+
+    const savedCart = localStorage.getItem(`cart_${user.id}`);
 
     if (savedCart) {
       setCart(JSON.parse(savedCart));
+    } else {
+      setCart([]);
     }
 
     setLoaded(true);
-  }, []);
+  }, [user]);
 
   useEffect(() => {
-    if (loaded) {
-      localStorage.setItem("cart", JSON.stringify(cart));
+    if (loaded && user) {
+      localStorage.setItem(
+        `cart_${user.id}`,
+        JSON.stringify(cart)
+      );
     }
-  }, [cart, loaded]);
+  }, [cart, loaded, user]);
 
   const addToCart = (game) => {
     setCart([...cart, game]);
@@ -54,7 +67,7 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        /Públicas
+        {/* Públicas */}
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -70,7 +83,7 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetails />} />
 
-        /Protegidas
+        {/* Protegidas */}
         <Route
           path="/cart/*"
           element={

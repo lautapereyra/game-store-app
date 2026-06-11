@@ -1,14 +1,19 @@
 .hero-section {
     position: relative;
     min-height: 95vh;
+
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+
     color: white;
     overflow: hidden;
+
+    isolation: isolate;
+    /* 👈 CLAVE: crea stacking context limpio */
 }
 
+/* fondo */
 .hero-section::before {
     content: "";
     position: absolute;
@@ -19,79 +24,288 @@
     background-size: cover;
     background-repeat: no-repeat;
 
-    filter: blur(5px);
+    filter: blur(6px);
     transform: scale(1.1);
 
-    z-index: 1;
+    z-index: -2;
+    /* 👈 IMPORTANTE: fondo REAL */
 }
 
+/* overlay oscuro */
 .hero-section::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 2;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    z-index: -1;
+    /* 👈 arriba del fondo, pero debajo del contenido */
 }
 
-.hero-section .container {
+/* contenido */
+.hero-content {
     position: relative;
-    z-index: 3;
+    z-index: 1;
+    max-width: 650px;
+    margin-left: 0;
 }
 
+/* TITULO */
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
+    font-family: "Anton", sans-serif;
+    text-align: left;
+    font-size: 3.4rem;
+    font-weight: 400;
+    color: white;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    word-spacing: 5px;
 }
 
-.hero-subtitle {
-    font-size: 1.4rem;
-    color: #b0b0b0;
-    max-width: 600px;
-    margin: 0 auto;
+.brand {
+    font-family: "Anton", sans-serif;
+    font-size: 3.4rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: #ec1f42;
+
+    /* efecto gamer más sutil (rojo glow) */
+    text-shadow:
+        0 0 10px rgba(236, 31, 66, 0.35),
+        0 0 25px rgba(236, 31, 66, 0.2);
 }
+
+/* SUBTITULO */
+.hero-subtitle {
+    text-align: left;
+
+    font-size: 1.3rem;
+    color: #b0b0b0;
+    max-width: 55%;
+}
+
+/* BOTONES */
 
 .hero-buttons {
-    margin-top: 2rem;
     display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+    gap: 12px;
+    width: 55%;
+    align-items: center;
 }
 
+.exp-tienda {
+    color: white;
+    border: 2px solid #ec1f42;
+    background: #ec1f42;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    text-decoration: none;
+    width: 50%;
+}
+
+p {
+    font-size: 20px !important;
+}
+
+.exp-tienda:hover {
+    color: #ec1f42;
+    border: 2px solid #ec1f42;
+    background: rgb(226, 226, 226);
+    box-shadow:
+        0 0 8px rgba(236, 31, 66, 0.4),
+        0 0 20px rgba(236, 31, 66, 0.3),
+        0 0 35px rgba(236, 31, 66, 0.2);
+}
+
+
+.ver-catalogo {
+    color: #ec1f42;
+    border: 2px solid #ec1f42;
+    background: transparent;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    text-decoration: none;
+    width: 50%;
+}
+
+.ver-catalogo:hover {
+    color: white;
+    border: 2px solid #ec1f42;
+    background: #ec1f42;
+
+    box-shadow:
+        0 0 8px rgba(236, 31, 66, 0.4),
+        0 0 20px rgba(236, 31, 66, 0.3),
+        0 0 35px rgba(236, 31, 66, 0.2);
+}
+
+
+
+.hero-btn {
+    flex: 1;
+    margin: 0px 10px 0px 0px;
+    text-align: center;
+    padding: 14px 20px;
+    border-radius: 0;
+    /* 👈 importante para que no rompa el bloque */
+    font-weight: 600;
+}
+
+/* opcional: separación visual tipo “corte” */
+.hero-btn:first-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-outline-light {
+    width: 50%;
+
+}
+
+/* BOTÓN PRINCIPAL */
 .hero-buttons .btn-success {
     background-color: #ec1f42;
-    border: none;
+    border: 1px solid #ec1f42;
     color: white;
+
     font-weight: 600;
     padding: 10px 20px;
     border-radius: 8px;
-    transition: 0.3s ease;
+
+    transition: all 0.3s ease;
 }
 
 .hero-buttons .btn-success:hover {
-    background-color: #c81a36;
+    box-shadow:
+        0 0 10px rgba(236, 31, 66, 0.4),
+        0 0 25px rgba(236, 31, 66, 0.25);
+
+    transform: translateY(-2px);
 }
 
+/* BOTÓN SECUNDARIO */
 .hero-buttons .btn-outline-light {
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
+
     padding: 10px 20px;
     border-radius: 8px;
-    transition: 0.3s ease;
+
+    transition: all 0.3s ease;
 }
 
 .hero-buttons .btn-outline-light:hover {
     border-color: #ec1f42;
     color: #ec1f42;
+
+    box-shadow:
+        0 0 10px rgba(236, 31, 66, 0.35),
+        0 0 25px rgba(236, 31, 66, 0.2);
+
+    transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    .hero-content {
+        max-width: 80%;
+    }
+
     .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .brand {
+        font-size: 2.8rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        max-width: 70%;
+    }
+
+    .hero-buttons {
+        width: 70%;
+    }
+}
+
+/* Tablets chicas / celulares grandes */
+@media (max-width: 768px) {
+    .hero-section {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 90%;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+        text-align: center;
+
+    }
+
+    .brand {
         font-size: 2.2rem;
     }
 
     .hero-subtitle {
         font-size: 1rem;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .exp-tienda,
+    .ver-catalogo,
+    .hero-buttons .btn-success,
+    .hero-buttons .btn-outline-light {
+        width: 100%;
+    }
+
+    p {
+        font-size: 18px !important;
+    }
+}
+
+/* Celulares chicos */
+@media (max-width: 480px) {
+
+    .hero-title,
+    .brand {
+        text-align: left;
+        font-size: 1.8rem;
+        letter-spacing: 0.5px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .hero-section {
+        min-height: 85vh;
+        padding: 20px;
+    }
+
+    .hero-buttons {
+        gap: 8px;
     }
 }

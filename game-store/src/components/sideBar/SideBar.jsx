@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./sideBar.css";
+import "./sidebar.css";
 
 function Sidebar({
     selectedGenre,

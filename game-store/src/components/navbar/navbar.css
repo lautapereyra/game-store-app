@@ -17,10 +17,9 @@
 
     transition: all 0.3s ease;
     z-index: 1000;
-
 }
 
-/* glow sutil inferior */
+/* glow inferior */
 .navbar::after {
     content: "";
     position: absolute;
@@ -44,7 +43,7 @@
     padding: 0 1rem;
 }
 
-/* BRAND (LOGO) */
+/* BRAND */
 .navbar-brand {
     color: #ffffff !important;
     text-decoration: none !important;
@@ -80,13 +79,11 @@
     color: #ec1f42 !important;
 }
 
-/* ACTIVE */
 .nav-link.active {
     color: #ec1f42 !important;
     font-weight: bold;
 }
 
-/* Línea inferior active */
 .nav-link.active::after {
     content: "";
     position: absolute;
@@ -124,20 +121,17 @@
     color: #ec1f42;
 }
 
-.dropdown-divider {
-    border-color: rgba(0, 140, 255, 0.15);
-}
-
+/* USER */
 .user-name {
     color: #cbd6ff;
 }
 
-/* BUSCADOR */
+/* FORM */
 .navbar .form-control {
     background-color: rgba(0, 140, 255, 0.08);
     border: 1px solid rgba(0, 140, 255, 0.2);
     color: #ffffff;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .navbar .form-control::placeholder {
@@ -148,10 +142,37 @@
     background-color: rgba(0, 140, 255, 0.12);
     border-color: #ec1f42;
     box-shadow: 0 0 0 3px rgba(236, 31, 66, 0.15);
-    color: #ffffff;
 }
 
-/* BOTÓN */
+/* BOTONES BASE */
+.user-section .btn {
+    transition: all 0.3s ease;
+}
+
+/* LOGIN / LOGOUT */
+.user-section .btn-danger:hover,
+.user-section .btn-success:hover {
+    background-color: #ec1f42 !important;
+    border-color: #ec1f42 !important;
+    color: white !important;
+
+    box-shadow:
+        0 0 10px rgba(236, 31, 66, 0.4),
+        0 0 25px rgba(236, 31, 66, 0.25);
+}
+
+/* CARRITO */
+.user-section .btn-outline-primary:hover {
+    background-color: rgba(0, 140, 255, 0.2) !important;
+    border-color: rgba(0, 140, 255, 0.8) !important;
+    color: white !important;
+
+    box-shadow:
+        0 0 10px rgba(0, 140, 255, 0.35),
+        0 0 25px rgba(0, 140, 255, 0.2);
+}
+
+/* BOTÓN SEARCH (si lo usás) */
 .navbar .btn-outline-success {
     color: #ec1f42;
     border-color: #ec1f42;
@@ -161,32 +182,60 @@
 .navbar .btn-outline-success:hover {
     background-color: #ec1f42;
     color: white;
+    border-color: #ec1f42;
+
+    box-shadow:
+        0 0 8px rgba(236, 31, 66, 0.4),
+        0 0 20px rgba(236, 31, 66, 0.3),
+        0 0 35px rgba(236, 31, 66, 0.2);
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    .custom-navbar {
-        padding: 0 0.5rem;
-    }
+@media (max-width: 991px) {
 
     .navbar-collapse {
-        padding: 0.75rem 0;
-        border-top: 1px solid rgba(0, 140, 255, 0.12);
-        margin-top: 0.5rem;
+        margin-top: .8rem;
     }
 
-    .nav-link.active::after {
-        display: none;
+    .navbar-nav {
+        text-align: center;
+        gap: .3rem;
     }
 
-    .navbar .form-control,
-    .navbar .btn-outline-success {
-        width: 100%;
+    .nav-link {
+        padding: .6rem 0;
     }
 
-    .navbar .d-flex {
+    .user-section {
+        margin-top: 1rem !important;
+        display: flex;
         flex-direction: column;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
+        gap: .5rem !important;
+        align-items: center !important;
+    }
+
+    .user-name {
+        margin: 0 !important;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .user-section .btn {
+        width: 220px;
+        max-width: 100%;
+    }
+
+    .user-section .dropdown {
+        width: 220px;
+    }
+
+    .btn {
+        margin: 0 !important;
+    }
+
+    .dropdown-menu {
+        width: 220px;
+        left: 50% !important;
+        transform: translateX(-50%);
     }
 }
