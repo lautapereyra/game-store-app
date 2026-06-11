@@ -48,36 +48,27 @@ const NewsDetails = () => {
     return (
         <>
             <Navbar />
-
             <section className="news-article">
-
                 <div className="news-hero">
-
                     <img
                         src={news.image}
                         alt={news.title}
                         className="news-hero-image"
                     />
-
                     <div className="news-hero-overlay"></div>
-
                     <div className="news-hero-content">
-
                         <button
                             className="news-back-btn"
                             onClick={() => navigate("/news")}
                         >
                             ← Volver a noticias
                         </button>
-
                         <span className="news-category">
                             {news.source}
                         </span>
-
                         <h1 className="news-headline">
                             {news.title}
                         </h1>
-
                         <p className="news-date">
                             {new Date(news.publishedAt).toLocaleDateString(
                                 "es-AR",
@@ -88,11 +79,8 @@ const NewsDetails = () => {
                                 }
                             )}
                         </p>
-
                     </div>
-
                 </div>
-
                 <div className="news-content-wrapper">
 
                     <div className="news-article-content">
@@ -100,11 +88,8 @@ const NewsDetails = () => {
                             <p key={index}>{paragraph}</p>
                         ))}
                     </div>
-
                 </div>
-
             </section>
-
             <Footer />
         </>
     );

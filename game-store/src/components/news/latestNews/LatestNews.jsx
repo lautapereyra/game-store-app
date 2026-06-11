@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import NewsCard from "../newsCard/NewsCard";
 import { useNavigate } from "react-router-dom";
+import NewsCard from "../newsCard/NewsCard";
 import "./latestNews.css";
 
 function LatestNews() {
@@ -14,10 +14,13 @@ function LatestNews() {
             .catch(err => console.log(err));
     }, []);
 
-    // Ordenar por publishedAt (más nuevas primero) y tomar solo 4
     const latestNews = [...news]
         .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
         .slice(0, 4);
+
+    const handleEdit = (news) => {
+        navigate(`/news/edit/${news.id}`);
+    };
 
     return (
         <section className="news-section">
@@ -39,6 +42,7 @@ function LatestNews() {
                             onViewMore={(news) =>
                                 navigate(`/news/${news.id}`)
                             }
+                            onEdit={handleEdit}
                         />
                     ))}
                 </div>

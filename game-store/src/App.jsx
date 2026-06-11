@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Navigate, BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
 import './App.css';
-
 import Login from './components/auth/login/Login';
 import Protected from './components/routing/protected/Protected';
 import NotFound from './components/ui/notFound/NotFound';
@@ -19,6 +16,7 @@ import GameDetails from './components/pages/gameDetails/GameDetails';
 import Carrito from './components/pages/carrito/Carrito';
 import News from './components/news/News';
 import NewsDetails from './components/news/newsDetails/NewsDetails';
+import EditNews from './components/news/editNews/EditNews';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -110,6 +108,14 @@ function App() {
           }
         />
         <Route path="*" element={<NotFound />} />
+        <Route
+          path="/news/edit/:id"
+          element={
+            <Protected allowedRoles={["ADMIN", "MODERATOR"]}>
+              <EditNews />
+            </Protected>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

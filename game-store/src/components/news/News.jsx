@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
+import { Card, Container, Row, Col, Spinner, Button } from "react-bootstrap";
+import { AuthContext } from "../auth/autProvider/AuthProvider";
 
 import "./news.css";
+
 const News = () => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         fetch("http://localhost:3000/news")
@@ -37,7 +41,9 @@ const News = () => {
                 </h1>
 
                 <p className="news-page-description">
-                    Enterate de las últimas novedades del mundo gamer: lanzamientos, actualizaciones, torneos, anuncios y todo lo que está pasando en la industria.
+                    Enterate de las últimas novedades del mundo gamer:
+                    lanzamientos, actualizaciones, torneos, anuncios y todo lo
+                    que está pasando en la industria.
                 </p>
 
                 <Row>
@@ -53,12 +59,12 @@ const News = () => {
                                     }}
                                 />
 
-                                <Card.Body>
+                                <Card.Body className="d-flex flex-column">
                                     <Card.Title>
                                         {item.title}
                                     </Card.Title>
 
-                                    <Card.Subtitle className="text-muted">
+                                    <Card.Subtitle className="text-muted mb-2">
                                         {item.source}
                                     </Card.Subtitle>
 
@@ -68,12 +74,30 @@ const News = () => {
                                             : item.content}
                                     </Card.Text>
 
-                                    <button
-                                        className="news-btn mt-auto"
-                                        onClick={() => navigate(`/news/${item.id}`)}
-                                    >
-                                        Ver más
-                                    </button>
+                                    <div className="mt-auto d-flex gap-2">
+                                        <button
+                                            className="news-btn"
+                                            onClick={() =>
+                                                navigate(`/news/${item.id}`)
+                                            }
+                                        >
+                                            Ver más
+                                        </button>
+
+                                        {(user?.role === "ADMIN" ||
+                                            user?.role === "MODERATOR") && (
+                                                <Button
+                                                    className="news-btn"
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/news/edit/${item.id}`
+                                                        )
+                                                    }
+                                                >
+                                                    Editar
+                                                </Button>
+                                            )}
+                                    </div>
                                 </Card.Body>
 
                                 <Card.Footer className="text-muted">

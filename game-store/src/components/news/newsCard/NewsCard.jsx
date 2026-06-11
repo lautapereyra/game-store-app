@@ -1,6 +1,9 @@
 import "./newsCard.css";
+import { useContext } from "react";
+import { AuthContext } from "../../auth/autProvider/AuthProvider";
 
-const NewsCard = ({ news, onViewMore }) => {
+const NewsCard = ({ news, onViewMore, onEdit }) => {
+    const { user } = useContext(AuthContext);
     return (
         <div className="news-card">
             <img
@@ -32,6 +35,15 @@ const NewsCard = ({ news, onViewMore }) => {
                 >
                     Ver más
                 </button>
+
+                {(user?.role === "ADMIN" || user?.role === "MODERATOR") && (
+                    <button
+                        className="news-card-button"
+                        onClick={() => onEdit(news)}
+                    >
+                        Editar
+                    </button>
+                )}
             </div>
         </div>
     );
