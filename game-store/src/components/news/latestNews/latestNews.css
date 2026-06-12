@@ -36,3 +36,84 @@
 .news-card-wrapper:last-child {
     border-bottom: none;
 }
+
+/* Tablets */
+
+@media (min-width: 769px) and (max-width: 991px) {
+    .news-section {
+        padding: 3.5rem 0;
+    }
+
+    .news-section h2 {
+        font-size: 1.9rem;
+    }
+
+    .news-description {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .news-section .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .news-card-wrapper {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .news-section {
+        padding: 3rem 0;
+    }
+
+    .news-section h2 {
+        font-size: 1.75rem;
+    }
+
+    .news-description {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .news-section .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .news-card-wrapper {
+        border-bottom: none;
+    }
+}
+
+/* Celulares */
+@media (max-width: 576px) {
+    .news-section {
+        padding: 2.5rem 0;
+    }
+
+    .news-title,
+    .news-description {
+        text-align: center;
+    }
+
+    .news-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .news-description {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .news-section .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .news-card-wrapper {
+        border-bottom: none;
+    }
+}

@@ -32,3 +32,55 @@
 .top-rated-card {
     width: 100%;
 }
+
+/* Tablets */
+@media (max-width: 768px) {
+    .top-rated {
+        padding: 3rem 0;
+    }
+
+    .top-rated h2 {
+        font-size: 1.75rem;
+    }
+
+    .description-text {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .top-rated .catalog-grid {
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+/* Celulares */
+@media (max-width: 576px) {
+    .top-rated {
+        padding: 2.5rem 0;
+    }
+
+    .top-rated-title,
+    .description-text {
+        text-align: center;
+    }
+
+    .top-rated h2 {
+        font-size: 1.5rem;
+    }
+
+    .description-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .top-rated .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .top-rated-card {
+        max-width: 400px;
+    }
+}

@@ -231,6 +231,7 @@ p {
     .hero-subtitle {
         font-size: 1.1rem;
         max-width: 70%;
+        margin-bottom: 17px;
     }
 
     .hero-buttons {
