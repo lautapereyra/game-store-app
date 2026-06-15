@@ -4,54 +4,94 @@ import { Button, Card, Col, Form, FormGroup, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./register.css";
 
+import { useContext } from "react";
+import { AuthContext } from "../autProvider/AuthProvider";
+
 const Register = () => {
 
     const navigate = useNavigate();
-    const [userName,setUserName] = useState("");
+    const { login } = useContext(AuthContext);
+    const [userName, setUserName] = useState("");
     const [userLastName, setUserLastName] = useState("");
-    const [dni,setDni] = useState("");
-    const [date,setDate] = useState("");
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
+    const [dni, setDni] = useState("");
+    const [date, setDate] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const [successToast, setSuccessToast] = useState("");
     const [error, setError] = useState("");
 
-    
-  const handleRegister = (event) => {
-    event.preventDefault();
-    console.log({
-    userName,
-    userLastName,
-    dni,
-    date,
-    email,
-    password,
-});
+    const handleRegister = (event) => {
 
-    fetch("http://localhost:3000/register", {
-      headers: {
-        "Content-type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ userName, userLastName,dni, date, email, password }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Error en la respuesta del servidor");
-        }
-        return res.json();
-      })
-      .then(() => {
-        setSuccessToast(true);
-        setTimeout(() => {
-          navigate("/home");
-        }, 1500);
-      })
-      .catch((error) => {console.log(error);
-        setError(true)}
-      );
-  };
+        event.preventDefault();
+
+        setError("");
+
+        fetch(
+            "http://localhost:3000/register",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+                },
+
+                body: JSON.stringify({
+                    userName,
+                    userLastName,
+                    dni,
+                    date,
+                    email,
+                    password,
+                }),
+            }
+        )
+
+            .then(async (res) => {
+
+                const data =
+                    await res.json();
+
+                if (!res.ok) {
+                    throw new Error(
+                        data.message
+                    );
+                }
+
+                return data;
+
+            })
+            .then((data) => {
+
+                login({
+                    ...data.user,
+
+                    token:
+                        data.token,
+                });
+
+                setSuccessToast(true);
+
+                setTimeout(() => {
+
+                    navigate(
+                        "/home"
+                    );
+
+                }, 1000);
+
+            })
+
+            .catch((error) => {
+
+                setError(
+                    error.message
+                );
+
+            });
+
+    };
     return (
         <div className="register-container">
             <Card className="register-card">
@@ -115,13 +155,13 @@ const Register = () => {
                                 value={password}
                             />
                         </FormGroup>
-                        <Button 
-                        type="submit"
-                        className="create-user-button w-100">
+                        <Button
+                            type="submit"
+                            className="create-user-button w-100">
                             Crear usuario
                         </Button>
                     </Form>
-                         {/* 🔹 MENSAJE DE ÉXITO */}
+                    {/* 🔹 MENSAJE DE ÉXITO */}
                     {successToast && (
                         <p className="mt-3 text-success">
                             Usuario Creado Correctamente ✅
@@ -131,7 +171,7 @@ const Register = () => {
                     {/* 🔹 MENSAJE DE ERROR */}
                     {error && (
                         <p className="mt-3 text-danger">
-                            Error al crear un usuario ❌
+                            {error}
                         </p>
                     )}
                 </Card.Body>

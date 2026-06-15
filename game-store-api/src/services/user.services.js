@@ -1,9 +1,12 @@
-import { User } from '../models/User.js';
+import { User } from "../models/User.js";
+
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 
-
+// CREATE USER
 export const createUser = async (req, res) => {
-     console.log(req.body);
+
     const {
         userName,
         userLastName,
@@ -12,18 +15,9 @@ export const createUser = async (req, res) => {
         email,
         password,
     } = req.body;
-    
-console.log({
-    userName,
-    userLastName,
-    dni,
-    date,
-    email,
-    password,
-});
-    // VALIDACIÓN
+
     if (
-        !userName||
+        !userName ||
         !userLastName ||
         !dni ||
         !date ||
@@ -31,158 +25,333 @@ console.log({
         !password
     ) {
         return res.status(400).json({
-            message: "Todos los campos son obligatorios"
+            message:
+                "Todos los campos son obligatorios",
         });
     }
 
     try {
 
-        const user = await User.create({
-            userName,
-            userLastName,
-            dni,
-            date,
+        const existingUser =
+            await User.findOne({
+                where: {
+                    dni,
+                },
+            });
+
+        if (existingUser) {
+            return res.status(409).json({
+                message:
+                    "Ya hay un usuario registrado con ese DNI",
+            });
+        }
+        const existingEmail =
+            await User.findOne({
+                where: { email }
+            });
+
+        if (existingEmail) {
+            return res.status(409).json({
+                message:
+                    "Ya hay un usuario registrado con ese email",
+            });
+        }
+
+        const hashedPassword =
+            await bcrypt.hash(
+                password,
+                10
+            );
+
+        const user =
+            await User.create({
+                userName,
+                userLastName,
+                dni,
+                date,
+                email,
+                password:
+                    hashedPassword,
+            });
+
+        const token =
+            jwt.sign(
+                {
+                    id:
+                        user.id,
+
+                    email:
+                        user.email,
+
+                    role:
+                        user.role,
+                },
+
+                process.env.JWT_SECRET,
+
+                {
+                    expiresIn:
+                        "24h",
+                }
+            );
+
+        res.status(201).json({
+
+            message:
+                "Usuario creado correctamente",
+
+            token,
+
+            user: {
+                id:
+                    user.id,
+
+                userName:
+                    user.userName,
+
+                email:
+                    user.email,
+
+                role:
+                    user.role,
+            },
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "ERROR CREATE USER:",
+            error
+        );
+
+        res.status(500).json({
+            message:
+                error.message,
+        });
+
+    }
+
+};
+
+
+// LOGIN
+export const loginUser =
+    async (req, res) => {
+
+        const {
             email,
             password,
-        });
+        } = req.body;
 
-        res.status(201).json(user);
+        try {
 
-    } catch (error) {
-        console.error("ERROR CREATE USER:", error);
+            const user =
+                await User.findOne({
+                    where: {
+                        email,
+                    },
+                });
 
-        res.status(500).json({
-            message: error.message
-        });
-
-    }
-};
-export const loginUser = async (req, res) => {
-
-    const { email, password } = req.body;
-
-    try {
-
-        const user = await User.findOne({
-            where: {
-                email,
-                password
+            if (!user) {
+                return res.status(401).json({
+                    message:
+                        "Email o contraseña incorrectos",
+                });
             }
-        });
 
-        if (!user) {
-            return res.status(401).json({
-                message: "Email o contraseña incorrectos"
+            const validPassword =
+                await bcrypt.compare(
+                    password,
+                    user.password
+                );
+
+            if (!validPassword) {
+                return res.status(401).json({
+                    message:
+                        "Email o contraseña incorrectos",
+                });
+            }
+
+            const token =
+                jwt.sign(
+                    {
+                        id:
+                            user.id,
+
+                        email:
+                            user.email,
+
+                        role:
+                            user.role,
+                    },
+
+                    process.env.JWT_SECRET,
+
+                    {
+                        expiresIn:
+                            "24h",
+                    }
+                );
+
+            res.status(200).json({
+
+                message:
+                    "Login exitoso",
+
+                token,
+
+                user: {
+                    id:
+                        user.id,
+
+                    userName:
+                        user.userName,
+
+                    email:
+                        user.email,
+
+                    role:
+                        user.role,
+                },
+
             });
+
+        } catch (error) {
+
+            res.status(500).json({
+                message:
+                    error.message,
+            });
+
         }
 
-        res.status(200).json({
-            message: "Login exitoso",
-            user
-        });
+    };
 
-    } catch (error) {
 
-        res.status(500).json({
-            message: error.message
-        });
+// GET USERS
+export const getUsers =
+    async (req, res) => {
 
-}};
+        try {
 
-export const getUsers = async (req, res) => {
+            const users =
+                await User.findAll();
 
-    try {
+            res.json(users);
 
-        const users = await User.findAll();
+        } catch (error) {
 
-        res.json(users);
-
-    } catch (error) {
-
-        res.status(500).json({
-            message: error.message
-        });
-
-    }
-};
-
-export const getUser = async (req, res) => {
-
-    try {
-
-        const { id } = req.params;
-
-        const user = await User.findByPk(id);
-
-        if (!user) {
-            return res.status(404).json({
-                message: "User not found"
+            res.status(500).json({
+                message:
+                    error.message,
             });
+
         }
 
-        res.json(user);
+    };
 
-    } catch (error) {
 
-        res.status(500).json({
-            message: error.message
-        });
+// GET USER
+export const getUser =
+    async (req, res) => {
 
-    }
-};
+        try {
 
-export const updateUser = async (req, res) => {
+            const user =
+                await User.findByPk(
+                    req.params.id
+                );
 
-    try {
+            if (!user) {
+                return res.status(404).json({
+                    message:
+                        "User not found",
+                });
+            }
 
-        const { id } = req.params;
+            res.json(user);
 
-        const user = await User.findByPk(id);
+        } catch (error) {
 
-        if (!user) {
-            return res.status(404).json({
-                message: "User not found"
+            res.status(500).json({
+                message:
+                    error.message,
             });
+
         }
 
-        await user.update(req.body);
+    };
 
-        res.json(user);
 
-    } catch (error) {
+// UPDATE
+export const updateUser =
+    async (req, res) => {
 
-        res.status(500).json({
-            message: error.message
-        });
+        try {
 
-    }
-};
+            const user =
+                await User.findByPk(
+                    req.params.id
+                );
 
-export const deleteUser = async (req, res) => {
+            if (!user) {
+                return res.status(404).json({
+                    message:
+                        "User not found",
+                });
+            }
 
-    try {
+            await user.update(
+                req.body
+            );
 
-        const { id } = req.params;
+            res.json(user);
 
-        const user = await User.findByPk(id);
+        } catch (error) {
 
-        if (!user) {
-            return res.status(404).json({
-                message: "User not found"
+            res.status(500).json({
+                message:
+                    error.message,
             });
+
         }
 
-        await user.destroy();
+    };
 
-        res.json({
-            message: "User deleted successfully"
-        });
 
-    } catch (error) {
+// DELETE
+export const deleteUser =
+    async (req, res) => {
 
-        res.status(500).json({
-            message: error.message
-        });
+        try {
 
-    }
-};
+            const user =
+                await User.findByPk(
+                    req.params.id
+                );
+
+            if (!user) {
+                return res.status(404).json({
+                    message:
+                        "User not found",
+                });
+            }
+
+            await user.destroy();
+
+            res.json({
+                message:
+                    "User deleted successfully",
+            });
+
+        } catch (error) {
+
+            res.status(500).json({
+                message:
+                    error.message,
+            });
+
+        }
+
+    };

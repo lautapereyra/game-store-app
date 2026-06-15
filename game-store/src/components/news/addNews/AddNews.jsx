@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../navbar/Navbar";
 
 const AddNews = () => {
     const navigate = useNavigate();
@@ -43,6 +44,8 @@ const AddNews = () => {
     };
 
     return (
+        <>
+        <Navbar/>
         <div className="container mt-5">
             <Card className="p-4 bg-dark text-light">
                 <h2 className="mb-4">Agregar Noticia</h2>
@@ -98,6 +101,7 @@ const AddNews = () => {
                 </Form>
             </Card>
         </div>
+        </>
     );
 };
 

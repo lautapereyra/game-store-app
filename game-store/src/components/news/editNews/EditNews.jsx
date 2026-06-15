@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card } from "react-bootstrap";
 import './editNews.css'
+import Navbar from "../../navbar/Navbar";
 
 function EditNews() {
     const { id } = useParams();
@@ -58,6 +59,8 @@ function EditNews() {
     };
 
     return (
+        <>
+        <Navbar/>
         <div className="edit-news-page">
             <div className="container">
                 <Card className="edit-news-card p-4">
@@ -121,6 +124,7 @@ function EditNews() {
                 </Card>
             </div>
         </div>
+        </>
     )
 };
 

@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Container, Row, Col, Spinner, Navbar } from "react-bootstrap";
+import { Card, Container, Row, Col, Spinner} from "react-bootstrap";
 import { AuthContext } from "../auth/autProvider/AuthProvider";
-
+import Navbar from "../navbar/Navbar";
 import "./news.css";
 
 const News = () => {
@@ -34,6 +34,8 @@ const News = () => {
     }
 
     return (
+        <>
+        <Navbar/>
 
         <div className="news-page">
             <Container>
@@ -108,6 +110,7 @@ const News = () => {
                 </Row>
             </Container>
         </div>
+        </>
     );
 };
 

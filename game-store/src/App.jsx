@@ -10,7 +10,7 @@ import Protected from './components/routing/protected/Protected';
 import NotFound from './components/ui/notFound/NotFound';
 import Dashboard from './components/dashboard/Dashboard';
 import Catalog from './components/pages/catalog/Catalog';
-import AddGame from './components/pages/gameAdd/AddGame';
+import AddGame from './components/pages/gameForms/AddGame';
 import AddNews from './components/news/addNews/AddNews';
 import Register from './components/auth/register/Register';
 import Users from './components/pages/users/users';
@@ -19,7 +19,7 @@ import Carrito from './components/pages/carrito/Carrito';
 import News from './components/news/News';
 import NewsDetails from './components/news/newsDetails/NewsDetails';
 import EditNews from './components/news/editNews/EditNews';
-import EditGame from './components/games/editGame/EditGame';
+import EditGame from './components/pages/gameForms/EditGame';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -89,19 +89,26 @@ function App() {
           path="/cart/*"
           element={
             <Protected>
-              <Carrito
-                cart={cart}
-                deleteGame={deleteGame}
-                clearCart={clearCart}
-              />
+              <Carrito cart={cart} 
+              deleteGame={deleteGame}
+              clearCart={clearCart} />
+            </Protected>} />
+        <Route
+          path="/addGame"
+          element={
+            <Protected
+              allowedRoles={["ADMIN", "MODERATOR",]}>
+              <AddGame />
             </Protected>
           }
         />
+
         <Route
-          path="/addGame/*"
+          path="/editGame/:id"
           element={
-            <Protected allowedRoles={["ADMIN"]}>
-              <AddGame />
+            <Protected
+              allowedRoles={["ADMIN", "MODERATOR",]}>
+              <EditGame />
             </Protected>
           }
         />
@@ -114,15 +121,6 @@ function App() {
           }
         />
         <Route
-          path="/users"
-          element={
-            <Protected allowedRoles={["ADMIN"]}>
-              <Users />
-            </Protected>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-        <Route
           path="/news/edit/:id"
           element={
             <Protected allowedRoles={["ADMIN", "MODERATOR"]}>
@@ -131,11 +129,14 @@ function App() {
           }
         />
         <Route
-          path="/games/edit/:id"
-          element={<Protected allowedRoles={["ADMIN", "MODERATOR"]}>
-            <EditGame />
-          </Protected>}
+          path="/users"
+          element={
+            <Protected allowedRoles={["ADMIN"]}>
+              <Users />
+            </Protected>
+          }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
