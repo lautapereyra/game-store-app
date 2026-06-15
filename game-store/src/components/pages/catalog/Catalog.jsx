@@ -1,4 +1,4 @@
-import GameCard from "../../gameCard/GameCard";
+import GameCard from "../../games/gameCard/GameCard";
 import Navbar from "../../navbar/Navbar";
 import "./catalog.css";
 import Sidebar from "../../sidebar/Sidebar";

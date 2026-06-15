@@ -97,7 +97,7 @@ const Navbar = () => {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    Admin
+                                    {user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}
                                 </button>
 
                                 <ul className="dropdown-menu dropdown-menu-end">
@@ -118,14 +118,15 @@ const Navbar = () => {
                                             Agregar Noticias
                                         </button>
                                     </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={() => navigate("/users")}
-                                        >
-                                            Ver usuarios
-                                        </button>
-                                    </li>
+                                    {(user?.role === "ADMIN") && (
+                                        <li>
+                                            <button
+                                                className="dropdown-item"
+                                                onClick={() => navigate("/users")}
+                                            >
+                                                Ver usuarios
+                                            </button>
+                                        </li>)}
                                 </ul>
                             </div>
                         )}

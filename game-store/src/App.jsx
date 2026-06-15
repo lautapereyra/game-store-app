@@ -19,6 +19,7 @@ import Carrito from './components/pages/carrito/Carrito';
 import News from './components/news/News';
 import NewsDetails from './components/news/newsDetails/NewsDetails';
 import EditNews from './components/news/editNews/EditNews';
+import EditGame from './components/games/editGame/EditGame';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -128,6 +129,12 @@ function App() {
               <EditNews />
             </Protected>
           }
+        />
+        <Route
+          path="/games/edit/:id"
+          element={<Protected allowedRoles={["ADMIN", "MODERATOR"]}>
+            <EditGame />
+          </Protected>}
         />
       </Routes>
     </BrowserRouter>

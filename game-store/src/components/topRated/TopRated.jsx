@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GameCard from "../gameCard/GameCard";
+import GameCard from "../games/gameCard/GameCard";
 import "./topRated.css";
 
 function TopRated({ addToCart }) {

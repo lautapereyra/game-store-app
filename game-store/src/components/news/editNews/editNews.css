@@ -1,0 +1,124 @@
+/* PAGE */
+.edit-news-page {
+    min-height: 100vh;
+    padding: 7rem 1rem 3rem;
+    background:
+        radial-gradient(circle at top left,
+            rgba(0, 140, 255, 0.08),
+            transparent 40%),
+        radial-gradient(circle at bottom right,
+            rgba(236, 31, 66, 0.06),
+            transparent 40%),
+        linear-gradient(180deg,
+            #050814 0%,
+            #070b1a 100%);
+}
+
+/* CARD */
+.edit-news-card {
+    max-width: 900px;
+    margin: 0 auto;
+
+    background:
+        linear-gradient(180deg,
+            rgba(10, 16, 36, 0.95) 0%,
+            rgba(7, 11, 26, 0.95) 100%);
+
+    border: 1px solid rgba(0, 140, 255, 0.12);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+    border-radius: 20px;
+    color: white;
+    overflow: hidden;
+}
+
+/* TITULO */
+.edit-news-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+/* LABELS */
+.edit-news-card .form-label {
+    color: #cbd6ff;
+    font-weight: 500;
+}
+
+/* INPUTS */
+.edit-news-card .form-control {
+    background-color: rgba(0, 140, 255, 0.08);
+    border: 1px solid rgba(0, 140, 255, 0.2);
+    color: white;
+    border-radius: 12px;
+    padding: .85rem 1rem;
+    transition: all .3s ease;
+}
+
+.edit-news-card .form-control::placeholder {
+    color: rgba(203, 214, 255, .5);
+}
+
+.edit-news-card .form-control:focus {
+    background-color: rgba(0, 140, 255, 0.12);
+    border-color: #ec1f42;
+
+    box-shadow:
+        0 0 0 3px rgba(236, 31, 66, 0.15);
+
+    color: white;
+}
+
+/* TEXTAREA */
+.edit-news-card textarea {
+    min-height: 220px;
+    resize: vertical;
+}
+
+/* BOTON */
+.save-news-btn {
+    width: 100%;
+    height: 52px;
+
+    background: #008cff;
+    border: 1px solid #008cff;
+
+    font-weight: 600;
+    border-radius: 12px;
+
+    transition: all .3s ease;
+}
+
+.save-news-btn:hover {
+    background: #ec1f42;
+    border-color: #ec1f42;
+
+    box-shadow:
+        0 0 10px rgba(236, 31, 66, 0.4),
+        0 0 25px rgba(236, 31, 66, 0.25);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .edit-news-page {
+        padding-top: 6rem;
+    }
+
+    .edit-news-card {
+        border-radius: 16px;
+    }
+
+    .edit-news-title {
+        font-size: 1.6rem;
+    }
+
+    .save-news-btn {
+        width: 100%;
+    }
+}

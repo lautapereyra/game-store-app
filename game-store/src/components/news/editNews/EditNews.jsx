@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card } from "react-bootstrap";
+import './editNews.css'
 
 function EditNews() {
     const { id } = useParams();
@@ -57,68 +58,70 @@ function EditNews() {
     };
 
     return (
-        <div className="container mt-5">
-            <Card className="p-4">
-                <h2 className="mb-4">Editar noticia</h2>
+        <div className="edit-news-page">
+            <div className="container">
+                <Card className="edit-news-card p-4">
+                    <h2 className="edit-news-title">
+                        Editar noticia
+                    </h2>
+                    <Form onSubmit={handleSubmit}>
 
-                <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Título</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={title}
+                                onChange={(e) =>
+                                    setTitle(e.target.value)
+                                }
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Título</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={title}
-                            onChange={(e) =>
-                                setTitle(e.target.value)
-                            }
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Contenido</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={5}
+                                value={content}
+                                onChange={(e) =>
+                                    setContent(e.target.value)
+                                }
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Contenido</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            rows={5}
-                            value={content}
-                            onChange={(e) =>
-                                setContent(e.target.value)
-                            }
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Imagen</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={image}
+                                onChange={(e) =>
+                                    setImage(e.target.value)
+                                }
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Imagen</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={image}
-                            onChange={(e) =>
-                                setImage(e.target.value)
-                            }
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Fuente</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={source}
+                                onChange={(e) =>
+                                    setSource(e.target.value)
+                                }
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Fuente</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={source}
-                            onChange={(e) =>
-                                setSource(e.target.value)
-                            }
-                        />
-                    </Form.Group>
-
-                    <Button
-                        variant="primary"
-                        type="submit"
-                    >
-                        Guardar cambios
-                    </Button>
-
-                </Form>
-            </Card>
+                        <Button
+                            className="save-news-btn"
+                            type="submit"
+                        >
+                            Guardar cambios
+                        </Button>
+                    </Form>
+                </Card>
+            </div>
         </div>
-    );
-}
+    )
+};
 
 export default EditNews;

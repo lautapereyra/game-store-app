@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Container, Row, Col, Spinner, Button } from "react-bootstrap";
+import { Card, Container, Row, Col, Spinner, Navbar } from "react-bootstrap";
 import { AuthContext } from "../auth/autProvider/AuthProvider";
 
 import "./news.css";
@@ -34,6 +34,7 @@ const News = () => {
     }
 
     return (
+
         <div className="news-page">
             <Container>
                 <h1 className="news-page-title">
@@ -74,28 +75,24 @@ const News = () => {
                                             : item.content}
                                     </Card.Text>
 
-                                    <div className="mt-auto d-flex gap-2">
+                                    <div className="mt-auto d-flex justify-content-between align-items-center">
                                         <button
                                             className="news-btn"
-                                            onClick={() =>
-                                                navigate(`/news/${item.id}`)
-                                            }
+                                            onClick={() => navigate(`/news/${item.id}`)}
                                         >
                                             Ver más
                                         </button>
 
                                         {(user?.role === "ADMIN" ||
                                             user?.role === "MODERATOR") && (
-                                                <Button
+                                                <button
                                                     className="news-btn"
                                                     onClick={() =>
-                                                        navigate(
-                                                            `/news/edit/${item.id}`
-                                                        )
+                                                        navigate(`/news/edit/${item.id}`)
                                                     }
                                                 >
                                                     Editar
-                                                </Button>
+                                                </button>
                                             )}
                                     </div>
                                 </Card.Body>
