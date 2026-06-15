@@ -121,13 +121,6 @@ const GameDetails = ({ addToCart, loggedIn }) => {
                   </p>
                 )}
 
-                <Button
-                  variant="outline-light"
-                  size="lg"
-                >
-                  Wishlist
-                </Button>
-
               </div>
 
               {error && (
