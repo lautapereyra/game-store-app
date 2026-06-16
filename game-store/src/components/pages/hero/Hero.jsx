@@ -1,8 +1,27 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./hero.css";
 import { Link } from "react-router";
+import Typed from "typed.js";
+
+import bg1 from "../../../assets/hero1.jpg";
+import bg2 from "../../../assets/hero2.jpg";
+import bg3 from "../../../assets/hero3.jpg";
+
+
 
 const Hero = () => {
+
+    const images = [bg1, bg2, bg3];
+    const [currentImage, setCurrentImage] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImage((prev) => (prev + 1) % images.length);
+        }, 9000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     const typedRef = useRef(null);
 
     useEffect(() => {
@@ -23,8 +42,32 @@ const Hero = () => {
         return () => typed.destroy();
     }, []);
 
+    const scrollToTopRated = () => {
+        const section = document.getElementById("top-rated");
+
+        if (section) {
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }
+    };
+
     return (
         <section className="hero-section">
+            <div className="hero-background">
+                {images.map((img, index) => (
+                    <div
+                        key={index}
+                        className={`hero-slide ${index === currentImage ? "active" : ""
+                            }`}
+                        style={{
+                            backgroundImage: `url(${img})`,
+                        }}
+                    />
+                ))}
+            </div>
+            <div className="hero-overlay"></div>
             <div className="container text-center">
                 <h1 className="hero-title">
                     Bienvenido a{" "}
@@ -32,12 +75,16 @@ const Hero = () => {
                 </h1>
 
                 <p className="hero-subtitle">
-                    Miles de juegos, ofertas increíbles y todo lo que necesitás en un solo lugar. Descubrí nuevos títulos, accedé a descuentos exclusivos y disfrutá de la mejor experiencia gaming.</p>
+                    Miles de juegos, ofertas increíbles y todo lo que necesitás en un solo lugar. Descubrí nuevos títulos, accedé a descuentos exclusivos y disfrutá de la mejor experiencia gaming.
+                </p>
 
                 <div className="hero-buttons">
-                    <a href="#" className="exp-tienda">
+                    <button
+                        className="exp-tienda"
+                        onClick={scrollToTopRated}
+                    >
                         Explorar tienda
-                    </a>
+                    </button>
 
                     <Link to="/catalog" className="ver-catalogo">
                         Ver catálogo

@@ -17,7 +17,7 @@ function TopRated({ addToCart }) {
         .slice(0, 4);
 
     return (
-        <section className="top-rated">
+        <section id="top-rated" className="top-rated">
             <div className="container">
 
                 <h2 className="top-rated-title">

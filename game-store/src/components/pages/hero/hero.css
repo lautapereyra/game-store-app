@@ -1,54 +1,78 @@
-.hero-section {
-    position: relative;
-    min-height: 95vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    color: white;
-    overflow: hidden;
-
-    isolation: isolate;
-    /* 👈 CLAVE: crea stacking context limpio */
+.hero-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
 }
 
-/* fondo */
-.hero-section::before {
-    content: "";
+.hero-slide {
     position: absolute;
     inset: 0;
 
-    background-image: url('../../../assets/heroBg.jpg');
-    background-position: center;
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
 
-    filter: blur(6px);
-    transform: scale(1.1);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 
-    z-index: -2;
-    /* 👈 IMPORTANTE: fondo REAL */
+    overflow: hidden;
 }
 
-/* overlay oscuro */
-.hero-section::after {
+/* capa interna para zoom */
+.hero-slide::after {
     content: "";
     position: absolute;
     inset: 0;
 
-    background: rgba(0, 0, 0, 0.55);
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
 
-    z-index: -1;
-    /* 👈 arriba del fondo, pero debajo del contenido */
+    transform: scale(1);
+    transition: transform 10s linear;
 }
 
-/* contenido */
+/* activo */
+.hero-slide.active {
+    opacity: 1;
+}
+
+/* zoom continuo sin reset brusco */
+.hero-slide.active::after {
+    transform: scale(1.05);
+    /* menor zoom */
+}
+
+@keyframes heroZoom {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.1);
+    }
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    z-index: 1;
+}
+
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+
     max-width: 650px;
     margin-left: 0;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
 }
 
 /* TITULO */
@@ -213,6 +237,18 @@ p {
         0 0 25px rgba(236, 31, 66, 0.2);
 
     transform: translateY(-2px);
+}
+
+.hero-section {
+    position: relative;
+    min-height: 95vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    color: white;
+    overflow: hidden;
 }
 
 @media (max-width: 1024px) {

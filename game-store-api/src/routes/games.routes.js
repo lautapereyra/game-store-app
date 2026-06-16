@@ -3,7 +3,6 @@ import { findGame, findGames, createGame, editGame, deleteGame } from '../servic
 
 const router = Router();
 
-//rutas
 router.get("/games", findGames);
 router.get("/games/:id", findGame);
 router.post("/games", createGame);
