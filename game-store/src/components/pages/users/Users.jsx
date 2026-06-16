@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../navbar/Navbar";
+import Footer from "../../footer/Footer.jsx"
 import "./users.css";
 
 const Users = () => {
@@ -111,6 +112,7 @@ const Users = () => {
                     </table>
                 </div >
             </div>
+            <Footer />
         </>
     );
 };

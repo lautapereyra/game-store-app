@@ -6,18 +6,19 @@ import Typed from "typed.js";
 import bg1 from "../../../assets/hero1.jpg";
 import bg2 from "../../../assets/hero2.jpg";
 import bg3 from "../../../assets/hero3.jpg";
+import bg4 from "../../../assets/hero4.jpg";
 
 
 
 const Hero = () => {
 
-    const images = [bg1, bg2, bg3];
+    const images = [bg1, bg2, bg3, bg4];
     const [currentImage, setCurrentImage] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % images.length);
-        }, 9000);
+        }, 7000);
 
         return () => clearInterval(interval);
     }, []);
@@ -31,9 +32,9 @@ const Hero = () => {
                 "tu mundo gamer.",
                 "game store."
             ],
-            typeSpeed: 30,
+            typeSpeed: 40,
             backSpeed: 20,
-            backDelay: 2050,
+            backDelay: 2100,
             loop: true,
             showCursor: true,
             cursorChar: "|",

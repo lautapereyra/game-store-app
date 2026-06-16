@@ -15,55 +15,96 @@ body {
     color: #f8fafc;
 }
 
+/* =========================
+   PAGE
+========================= */
+
 .users-page {
     min-height: 100vh;
 
     background:
-        radial-gradient(circle at 0% 100%, rgba(236, 31, 66, 0.18), transparent 40%),
-        radial-gradient(circle at 100% 0%, rgba(236, 31, 66, 0.12), transparent 35%),
+        radial-gradient(circle at 0% 100%,
+            rgba(0, 140, 255, 0.18),
+            transparent 55%),
+        radial-gradient(circle at 100% 0%,
+            rgba(236, 31, 66, 0.12),
+            transparent 60%),
         linear-gradient(180deg,
-            #810707 0%,
-            #090909 45%,
-            #000000 100%);
+            #050814 0%,
+            #070b1a 100%);
 
     padding: 40px 20px;
 }
 
-/* Contenedor principal */
+/* =========================
+   CONTAINER
+========================= */
+
 .users-container {
+    position: relative;
+
     max-width: 1400px;
-
     margin: auto;
-
     padding: 35px;
 
     border-radius: 20px;
 
-    background: rgba(15, 23, 42, 0.65);
+    background: rgba(10, 16, 36, 0.72);
 
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 140, 255, 0.12);
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.35),
-        0 0 0 1px rgba(255, 255, 255, 0.03);
+        0 10px 30px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    overflow: hidden;
 }
 
-/* Título */
+/* Glow inferior estilo navbar */
+.users-container::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 2px;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(0, 140, 255, 0.5),
+            rgba(236, 31, 66, 0.4),
+            transparent);
+
+    opacity: 0.8;
+}
+
+/* =========================
+   TITLE
+========================= */
+
 .users-title {
-    color: #f8fafc;
+    color: #ffffff;
 
     font-size: 2.3rem;
-
     font-weight: 700;
 
     letter-spacing: -1px;
 
     margin-bottom: 30px;
+
+    text-shadow: 0 0 20px rgba(0, 140, 255, 0.15);
 }
 
-/* Tabla */
+/* =========================
+   TABLE
+========================= */
+
 .users-table {
     margin-bottom: 0;
 
@@ -75,7 +116,7 @@ body {
 .users-table thead th {
     background: rgba(255, 255, 255, 0.04) !important;
 
-    color: #cbd5e1;
+    color: #cbd6ff;
 
     border: none;
 
@@ -89,65 +130,82 @@ body {
 }
 
 .users-table tbody tr {
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .users-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(0, 140, 255, 0.08);
 }
 
-.users-table tbody tr:hover {
-    background: rgba(236, 31, 66, 0.08);
-
-    transition: 0.2s ease;
+.users-table td,
+.users-table th {
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    color: #f8fafc;
 }
 
-/* Acciones */
+/* =========================
+   ACTIONS
+========================= */
+
 .actions-container {
     display: flex;
-
-    gap: 10px;
-
     align-items: center;
+    gap: 10px;
 }
 
-/* Select */
+/* =========================
+   SELECT
+========================= */
+
 .role-select {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 140, 255, 0.08);
 
     color: white;
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 140, 255, 0.2);
+
+    transition: all 0.3s ease;
 }
 
 .role-select:focus {
-    border-color: #3b82f6;
+    border-color: #ec1f42;
 
-    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.15);
+    box-shadow: 0 0 0 0.2rem rgba(236, 31, 66, 0.15);
+
+    background: rgba(0, 140, 255, 0.12);
 }
 
 .role-select option {
-    background: #1a1a1a;
-
+    background: #0a1024;
     color: white;
 }
 
-/* Botón eliminar */
+/* =========================
+   DELETE BUTTON
+========================= */
+
 .delete-btn {
     background: #dc2626;
 
     border: none;
 
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .delete-btn:hover {
-    background: #ef4444;
+    background: #ec1f42;
 
     transform: translateY(-1px);
+
+    box-shadow:
+        0 0 10px rgba(236, 31, 66, 0.4),
+        0 0 25px rgba(236, 31, 66, 0.25);
 }
 
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media (max-width: 768px) {
     .users-container {
         padding: 20px;

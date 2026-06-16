@@ -32,7 +32,6 @@
     transition: transform 10s linear;
 }
 
-/* activo */
 .hero-slide.active {
     opacity: 1;
 }
@@ -40,7 +39,6 @@
 /* zoom continuo sin reset brusco */
 .hero-slide.active::after {
     transform: scale(1.05);
-    /* menor zoom */
 }
 
 @keyframes heroZoom {
@@ -49,7 +47,7 @@
     }
 
     to {
-        transform: scale(1.1);
+        transform: scale(1.5);
     }
 }
 
@@ -57,7 +55,7 @@
     position: absolute;
     inset: 0;
 
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.4);
 
     z-index: 1;
 }
