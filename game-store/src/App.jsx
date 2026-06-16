@@ -104,7 +104,7 @@ function App() {
         />
 
         <Route
-          path="/editGame/:id"
+          path="/games/edit/:id"
           element={
             <Protected
               allowedRoles={["ADMIN", "MODERATOR",]}>
