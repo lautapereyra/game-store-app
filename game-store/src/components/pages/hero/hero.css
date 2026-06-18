@@ -63,7 +63,6 @@
 .hero-content {
     position: relative;
     z-index: 2;
-
     max-width: 650px;
     margin-left: 0;
 }
@@ -83,6 +82,7 @@
     line-height: 1.2;
     letter-spacing: 1px;
     word-spacing: 5px;
+    text-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
 }
 
 .brand {
@@ -91,10 +91,7 @@
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
-
     color: #ec1f42;
-
-    /* efecto gamer más sutil (rojo glow) */
     text-shadow:
         0 0 10px rgba(236, 31, 66, 0.35),
         0 0 25px rgba(236, 31, 66, 0.2);
@@ -103,14 +100,14 @@
 /* SUBTITULO */
 .hero-subtitle {
     text-align: left;
-
-    font-size: 1.3rem;
-    color: #b0b0b0;
-    max-width: 55%;
+    color: #dbdbdb;
+    font-size: 1.15rem !important;
+    line-height: 1.7;
+    margin: 0 0 1.7rem;
+    max-width: 700px;
 }
 
 /* BOTONES */
-
 .hero-buttons {
     display: flex;
     gap: 12px;
@@ -119,7 +116,7 @@
 }
 
 .exp-tienda {
-    color: white;
+    color: #cecece;
     border: 2px solid #ec1f42;
     background: #ec1f42;
     padding: 12px 28px;

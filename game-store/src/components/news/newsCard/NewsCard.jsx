@@ -2,7 +2,7 @@ import "./newsCard.css";
 import { useContext } from "react";
 import { AuthContext } from "../../auth/autProvider/AuthProvider";
 
-const NewsCard = ({ news, onViewMore, onEdit }) => {
+const NewsCard = ({ news, onViewMore, onEdit, onDelete }) => {
     const { user } = useContext(AuthContext);
     return (
         <div className="news-card">
@@ -29,21 +29,36 @@ const NewsCard = ({ news, onViewMore, onEdit }) => {
                     </span>
                 )}
 
-                <button
-                    className="news-card-button"
-                    onClick={() => onViewMore(news)}
-                >
-                    Ver más
-                </button>
-
-                {(user?.role === "ADMIN" || user?.role === "MODERATOR") && (
+                <div className="news-card-buttons">
                     <button
                         className="news-card-button"
-                        onClick={() => onEdit(news)}
+                        onClick={() => onViewMore(news)}
                     >
-                        Editar
+                        Ver más
                     </button>
-                )}
+
+                    {(user?.role === "ADMIN" || user?.role === "MODERATOR") && (
+                        <>
+                            <button
+                                className="news-card-button"
+                                onClick={() => onEdit(news)}
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                className="news-card-button delete-button"
+                                onClick={() => {
+                                    if (window.confirm(`¿Eliminar la noticia "${news.title}"?`)) {
+                                        onDelete(news.id);
+                                    }
+                                }}
+                            >
+                                Eliminar
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     );

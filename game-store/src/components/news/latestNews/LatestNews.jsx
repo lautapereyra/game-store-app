@@ -22,6 +22,19 @@ function LatestNews() {
         navigate(`/news/edit/${news.id}`);
     };
 
+    const handleDelete = async (id) => {
+        try {
+            await fetch(`http://localhost:3000/news/${id}`, {
+                method: "DELETE",
+            });
+
+            setNews((prev) =>
+                prev.filter((item) => item.id !== id)
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <section className="news-section">
             <div className="container">
@@ -43,6 +56,7 @@ function LatestNews() {
                                 navigate(`/news/${news.id}`)
                             }
                             onEdit={handleEdit}
+                            onDelete={handleDelete}
                         />
                     ))}
                 </div>

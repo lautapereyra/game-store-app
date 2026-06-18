@@ -1,6 +1,6 @@
 // 🔹 IMPORTAMOS useEffect
 import React, { useEffect, useState } from 'react'
-
+import Footer from "../../footer/Footer"
 import Navbar from '../../navbar/Navbar';
 import { Button, Badge } from 'react-bootstrap';
 import { useParams } from 'react-router';
@@ -82,12 +82,7 @@ const GameDetails = ({ addToCart, loggedIn }) => {
                 {game.genre}
               </Badge>
 
-              <h1
-                style={{
-                  fontSize: "3rem",
-                  fontWeight: "700"
-                }}
-              >
+              <h1 className="game-title">
                 {game.title}
               </h1>
 
@@ -136,6 +131,7 @@ const GameDetails = ({ addToCart, loggedIn }) => {
         </div>
 
       </div>
+      <Footer />
     </>
   )
 }

@@ -2,30 +2,30 @@
     padding: 4rem 0;
 }
 
-.top-rated-title {
-    text-align: le;
-    margin-bottom: 0.75rem;
-}
-
 .top-rated h2 {
-    color: #fff;
-    font-size: 2rem;
+    color: #ec1f42;
+    font-size: 2.2rem !important;
     font-weight: 700;
-    margin: 0;
+    margin-bottom: 0.45rem;
+    line-height: 1.2;
+    text-shadow:
+        0 0 10px rgba(236, 31, 66, 0.35),
+        0 0 25px rgba(236, 31, 66, 0.2);
 }
 
 .description-text {
     text-align: left;
-    color: #b3b3b3;
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0 0 2.5rem 0;
+    color: #dbdbdb;
+    font-size: 1.15rem !important;
+    line-height: 1.7;
+    margin: 0 0 2.5rem;
+    max-width: 700px;
 }
 
 .top-rated .catalog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    gap: 5px;
     justify-items: center;
 }
 

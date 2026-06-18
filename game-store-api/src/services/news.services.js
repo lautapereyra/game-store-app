@@ -44,7 +44,7 @@ export const createNews = async (req, res) => {
         source,
         image,
         content,
-        publishedAt
+        publishedAt: publishedAt || new Date()
     });
 
     res.json(newNews);

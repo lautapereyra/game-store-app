@@ -2,22 +2,21 @@
     padding: 4rem 0;
 }
 
-.news-title {
-    text-align: left;
-    margin-bottom: 0.75rem;
-}
-
 .news-section h2 {
-    color: #fff;
-    font-size: 2rem;
+    color: #ec1f42;
+    font-size: 2.2rem !important;
     font-weight: 700;
-    margin: 0;
+    margin-bottom: 0.45rem;
+    line-height: 1.2;
+    text-shadow:
+        0 0 10px rgba(236, 31, 66, 0.35),
+        0 0 25px rgba(236, 31, 66, 0.2);
 }
 
 .news-description {
     text-align: left;
-    color: #b3b3b3;
-    font-size: 1rem;
+    color: #dbdbdb !important;
+    font-size: 1.25rem !important;
     line-height: 1.6;
     margin: 0 0 2.5rem 0;
 }

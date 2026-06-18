@@ -102,6 +102,20 @@
     margin-bottom: 14px;
 }
 
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+    gap: 10px;
+}
+
+/* clave para que se repartan en todo el ancho */
+.buttons .news-btn {
+    flex: 1;
+    text-align: center;
+}
+
 /* FOOTER */
 
 .news-card-page .card-footer {
@@ -128,28 +142,31 @@
 }
 
 .news-btn {
-    margin-top: 6px;
-    padding: 6px 0px;
-    border: none;
-    background: transparent;
+    flex: 1;
+    padding: 5px;
+    border: 1px solid rgba(236, 31, 66, 0.35);
+    border-radius: 7px;
+
+    background: rgba(236, 31, 66, 0.08);
     color: #ec1f42;
-    cursor: pointer;
+
     font-weight: 600;
-    position: relative;
-    transition: color 0.25s ease;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    text-align: center;
 }
 
-.news-btn::after {
-    content: "";
-    position: absolute;
-    left: 2px;
-    bottom: 2px;
-    width: 0;
-    height: 2px;
-    background-color: #ec1f42;
-    transition: width 0.25s ease;
+/* hover más “botón real” */
+.news-btn:hover {
+    background: rgba(236, 31, 66, 0.18);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(236, 31, 66, 0.15);
 }
 
-.news-btn:hover::after {
-    width: calc(100% - 2px);
+/* efecto activo */
+.news-btn:active {
+    transform: translateY(0px);
+    box-shadow: none;
 }
