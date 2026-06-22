@@ -48,11 +48,7 @@ const NewsCard = ({ news, onViewMore, onEdit, onDelete }) => {
 
                             <button
                                 className="news-card-button delete-button"
-                                onClick={() => {
-                                    if (window.confirm(`¿Eliminar la noticia "${news.title}"?`)) {
-                                        onDelete(news.id);
-                                    }
-                                }}
+                                onClick={() => onDelete(news)}
                             >
                                 Eliminar
                             </button>

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import "./gameCard.css";
-import { useState } from 'react'
-import { useContext } from "react";
+import { useState, useContext } from 'react'
 import { AuthContext } from "../../auth/autProvider/AuthProvider";
 
 function GameCard({ game, addToCart }) {

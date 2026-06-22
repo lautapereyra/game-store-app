@@ -1,40 +1,65 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import NewsCard from "../newsCard/NewsCard";
+import ConfirmModal from "../../modal/ConfirmModal";
 import "./latestNews.css";
 
-function LatestNews() {
-    const [news, setNews] = useState([]);
+function LatestNews({ news = [] }) {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch("http://localhost:3000/news")
-            .then(res => res.json())
-            .then(data => setNews(data))
-            .catch(err => console.log(err));
-    }, []);
+    const [localNews, setLocalNews] = useState([]);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedNews, setSelectedNews] = useState(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
-    const latestNews = [...news]
+    useEffect(() => {
+        setLocalNews(news);
+    }, [news]);
+
+    const openDeleteModal = (newsItem) => {
+        setSelectedNews(newsItem);
+        setShowDeleteModal(true);
+    };
+
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false);
+        // selectedNews se limpia después, no de inmediato,
+        // para evitar que el mensaje del modal "parpadee" a undefined
+        // mientras se cierra (si tiene transición/animación).
+        setTimeout(() => setSelectedNews(null), 300);
+    };
+
+    const latestNews = [...localNews]
         .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
         .slice(0, 4);
 
-    const handleEdit = (news) => {
-        navigate(`/news/edit/${news.id}`);
+    const handleEdit = (newsItem) => {
+        navigate(`/news/edit/${newsItem.id}`);
     };
 
-    const handleDelete = async (id) => {
-        try {
-            await fetch(`http://localhost:3000/news/${id}`, {
-                method: "DELETE",
-            });
+    const handleConfirmDelete = async () => {
+        if (!selectedNews || isDeleting) return;
 
-            setNews((prev) =>
-                prev.filter((item) => item.id !== id)
+        const newsToDelete = selectedNews;
+        setIsDeleting(true);
+
+        try {
+            const res = await fetch(
+                `http://localhost:3000/news/${newsToDelete.id}`,
+                { method: "DELETE" }
             );
+
+            if (!res.ok) throw new Error("Error al eliminar");
+
+            setLocalNews(prev => prev.filter(n => n.id !== newsToDelete.id));
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsDeleting(false);
+            closeDeleteModal();
         }
     };
+
     return (
         <section className="news-section">
             <div className="container">
@@ -52,16 +77,24 @@ function LatestNews() {
                         <NewsCard
                             key={item.id}
                             news={item}
-                            onViewMore={(news) =>
-                                navigate(`/news/${news.id}`)
-                            }
+                            onViewMore={() => navigate(`/news/${item.id}`)}
                             onEdit={handleEdit}
-                            onDelete={handleDelete}
+                            onDelete={() => openDeleteModal(item)}
                         />
                     ))}
                 </div>
 
             </div>
+
+            <ConfirmModal
+                show={showDeleteModal}
+                onHide={closeDeleteModal}
+                onConfirm={handleConfirmDelete}
+                title="Eliminar noticia"
+                message={`¿Deseas eliminar la noticia "${selectedNews?.title}"?`}
+                confirmText="Sí, eliminar"
+                confirmLoading={isDeleting}
+            />
         </section>
     );
 }

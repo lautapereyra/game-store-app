@@ -4,11 +4,14 @@ import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import { AuthContext } from "../auth/autProvider/AuthProvider";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer"
+import ConfirmModal from "../modal/ConfirmModal";
 import "./news.css";
 
 const News = () => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedNews, setSelectedNews] = useState(null);
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -34,22 +37,24 @@ const News = () => {
             });
     }, []);
 
-    if (loading) {
-        return (
-            <div className="news-loading">
-                <Spinner animation="border" />
-            </div>
-        );
-    }
+    const openDeleteModal = (newsItem) => {
+        setSelectedNews(newsItem);
+        setShowDeleteModal(true);
+    };
 
-    const handleDelete = async (id) => {
-        const confirmDelete = window.confirm(
-            "¿Estás seguro de que querés eliminar esta noticia?"
-        );
-        if (!confirmDelete) return;
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false);
+        setTimeout(() => setSelectedNews(null), 300);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!selectedNews) return;
+
+        const newsToDelete = selectedNews;
+
         try {
             const response = await fetch(
-                `http://localhost:3000/news/${id}`,
+                `http://localhost:3000/news/${newsToDelete.id}`,
                 {
                     method: "DELETE",
                 }
@@ -58,12 +63,23 @@ const News = () => {
                 throw new Error("Error al eliminar noticia");
             }
             setNews((prev) =>
-                prev.filter((item) => item.id !== id)
+                prev.filter((item) => item.id !== newsToDelete.id)
             );
         } catch (error) {
             console.error(error);
+        } finally {
+            closeDeleteModal();
         }
     };
+
+    if (loading) {
+        return (
+            <div className="news-loading">
+                <Spinner animation="border" />
+            </div>
+        );
+    }
+
     return (
         <>
             <Navbar />
@@ -130,7 +146,7 @@ const News = () => {
 
                                                         <button
                                                             className="news-btn"
-                                                            onClick={() => handleDelete(item.id)}
+                                                            onClick={() => openDeleteModal(item)}
                                                         >
                                                             Eliminar
                                                         </button>
@@ -150,6 +166,16 @@ const News = () => {
                     </Row>
                 </Container>
             </div>
+
+            <ConfirmModal
+                show={showDeleteModal}
+                onHide={closeDeleteModal}
+                onConfirm={handleConfirmDelete}
+                title="Eliminar noticia"
+                message={`¿Estás seguro de que querés eliminar la noticia "${selectedNews?.title}"?`}
+                confirmText="Sí, eliminar"
+            />
+
             <Footer />
         </>
     );

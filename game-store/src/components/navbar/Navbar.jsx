@@ -1,13 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../auth/autProvider/AuthProvider';
 import './navbar.css';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import ConfirmModal from '../modal/ConfirmModal';
 
 const Navbar = () => {
 
     const { user, logout, isLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container custom-navbar">
@@ -65,10 +66,7 @@ const Navbar = () => {
                                 <button
                                     className="btn btn-danger"
                                     title="Cerrar Sesion"
-                                    onClick={() => {
-                                        logout();
-                                        navigate("/home");
-                                    }}
+                                    onClick={() => setShowLogoutModal(true)}
                                 >
                                     Cerrar sesión
                                 </button>
@@ -135,6 +133,17 @@ const Navbar = () => {
 
                 </div>
             </div>
+            <ConfirmModal
+                show={showLogoutModal}
+                onHide={() => setShowLogoutModal(false)}
+                onConfirm={() => {
+                    logout();
+                    navigate("/home");
+                }}
+                title="Cerrar sesión"
+                message="¿De verdad deseas cerrar sesión?"
+                confirmText="Sí, cerrar sesión"
+            />
         </nav>
     );
 };
