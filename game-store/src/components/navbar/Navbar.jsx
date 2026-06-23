@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../auth/autProvider/AuthProvider';
-import './navbar.css';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../modal/ConfirmModal';
+import './navbar.css';
 
 const Navbar = () => {
 
@@ -133,12 +133,16 @@ const Navbar = () => {
 
                 </div>
             </div>
+
             <ConfirmModal
                 show={showLogoutModal}
                 onHide={() => setShowLogoutModal(false)}
                 onConfirm={() => {
                     logout();
                     navigate("/home");
+                    setTimeout(() => {
+                        setShowLogoutModal(false);
+                    }, 300);
                 }}
                 title="Cerrar sesión"
                 message="¿De verdad deseas cerrar sesión?"

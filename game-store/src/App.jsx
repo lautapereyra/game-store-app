@@ -20,6 +20,8 @@ import News from './components/news/News';
 import NewsDetails from './components/news/newsDetails/NewsDetails';
 import EditNews from './components/news/editNews/EditNews';
 import EditGame from './components/pages/gameForms/EditGame';
+import Checkout from './components/pages/checkout/CheckOut';
+
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -89,9 +91,9 @@ function App() {
           path="/cart/*"
           element={
             <Protected>
-              <Carrito cart={cart} 
-              deleteGame={deleteGame}
-              clearCart={clearCart} />
+              <Carrito cart={cart}
+                deleteGame={deleteGame}
+                clearCart={clearCart} />
             </Protected>} />
         <Route
           path="/addGame"
@@ -137,6 +139,18 @@ function App() {
           }
         />
         <Route path="*" element={<NotFound />} />
+
+        <Route
+          path="/checkout"
+          element={
+            <Protected>
+              <Checkout
+                cart={cart}
+                clearCart={clearCart}
+              />
+            </Protected>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

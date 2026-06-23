@@ -1,11 +1,8 @@
-import {useEffect,useState} from "react";
-
-import {useNavigate, useParams} from "react-router";
-
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import Navbar from "../../navbar/Navbar";
-
 import GamesForm from "../../games/gameForm/GamesForm.jsx";
-
+import Footer from '../../footer/Footer.jsx'
 import "./addGame.css";
 
 const EditGame = () => {
@@ -101,6 +98,7 @@ const EditGame = () => {
                 />
 
             </div>
+            <Footer />
         </>
     );
 };

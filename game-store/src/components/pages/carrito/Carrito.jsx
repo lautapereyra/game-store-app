@@ -26,8 +26,7 @@ function Carrito({ cart = [], deleteGame, clearCart }) {
   };
 
   const handlePurchase = () => {
-    alert("Compra realizada");
-    clearCart();
+    navigate("/checkout");
   };
 
   return (

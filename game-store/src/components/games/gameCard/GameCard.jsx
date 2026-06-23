@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
-import "./gameCard.css";
 import { useState, useContext } from 'react'
 import { AuthContext } from "../../auth/autProvider/AuthProvider";
+import "./gameCard.css";
+import ConfirmModal from "../../modal/ConfirmModal";
 
 function GameCard({ game, addToCart }) {
 
@@ -34,9 +35,11 @@ function GameCard({ game, addToCart }) {
             setAdded(false);
         }, 2000);
     };
+
     const handleClick = () => {
         navigate(`/game/${game.id}`);
     }
+
     const confirmDelete = () => {
         fetch(`http://localhost:3000/games/${gameToDelete.id}`, {
             method: "DELETE"
@@ -44,9 +47,11 @@ function GameCard({ game, addToCart }) {
             .then(() => window.location.reload())
             .catch(err => console.log(err));
     };
+
     const handleEdit = () => {
         navigate(`/games/edit/${game.id}`);
     };
+
     return (
         <div className="container">
             <div className="game-card">
@@ -117,32 +122,23 @@ function GameCard({ game, addToCart }) {
                             </div>
                         )}
 
-                    {gameToDelete && (
-                        <div className="alert mt-3">
-
-                            <p>
-                                ¿Estás seguro de que querés eliminar{" "}
-                                <b>{gameToDelete.title}</b>?
-                            </p>
-
-                            <button
-                                className="btn btn-danger me-2"
-                                onClick={confirmDelete}
-                            >
-                                Sí, eliminar
-                            </button>
-
-                            <button
-                                className="btn btn-secondary"
-                                onClick={() => setGameToDelete(null)}
-                            >
-                                Cancelar
-                            </button>
-
-                        </div>
-                    )}
                 </div>
             </div>
+            <ConfirmModal
+                show={gameToDelete !== null}
+                onHide={() => setGameToDelete(null)}
+                onConfirm={() => {
+                    confirmDelete();
+                    setGameToDelete(null);
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 300);
+                }}
+                title="Eliminar juego"
+                message={`¿Deseas eliminar "${gameToDelete?.title}"?`}
+                confirmText="Sí, eliminar"
+            />
         </div>
     );
 }
