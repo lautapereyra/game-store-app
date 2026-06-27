@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import Navbar from "../../navbar/Navbar";
-import ConfirmModal from "../../modal/ConfirmModal";
+import ConfirmModal from "../../modal/confirmModal/ConfirmModal";
 import "./carrito.css";
 
 function Carrito({ cart = [], deleteGame, clearCart }) {

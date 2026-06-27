@@ -152,19 +152,18 @@ export const loginUser =
                 });
             if (!user) {
                 return res.status(401).json({
-                    message:
-                        "Email o contraseña incorrectos",
+                    message: "El email no está registrado",
                 });
             }
-            const validPassword =
-                await bcrypt.compare(
-                    password,
-                    user.password
-                );
+
+            const validPassword = await bcrypt.compare(
+                password,
+                user.password
+            );
+
             if (!validPassword) {
                 return res.status(401).json({
-                    message:
-                        "Email o contraseña incorrectos",
+                    message: "La contraseña es incorrecta",
                 });
             }
             const token =
@@ -188,14 +187,11 @@ export const loginUser =
                     "Login exitoso",
                 token,
                 user: {
-                    id:
-                        user.id,
-                    userName:
-                        user.userName,
-                    email:
-                        user.email,
-                    role:
-                        user.role,
+                    id: user.id,
+                    userName: user.userName,
+                    userLastName: user.userLastName,
+                    email: user.email,
+                    role: user.role,
                 },
 
             });

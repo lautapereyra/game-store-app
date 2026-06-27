@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../auth/autProvider/AuthProvider';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import ConfirmModal from '../modal/ConfirmModal';
+import ConfirmModal from '../modal/confirmModal/ConfirmModal';
 import './navbar.css';
 
 const Navbar = () => {

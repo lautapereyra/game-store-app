@@ -4,7 +4,7 @@ import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import { AuthContext } from "../auth/autProvider/AuthProvider";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer"
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/confirmModal/ConfirmModal";
 import "./news.css";
 
 const News = () => {

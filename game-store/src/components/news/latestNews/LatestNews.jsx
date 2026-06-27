@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NewsCard from "../newsCard/NewsCard";
-import ConfirmModal from "../../modal/ConfirmModal";
+import ConfirmModal from "../../modal/confirmModal/ConfirmModal";
 import "./latestNews.css";
 
 function LatestNews({ news = [] }) {

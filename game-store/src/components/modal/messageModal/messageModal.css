@@ -1,0 +1,134 @@
+/* FONDO OSCURECIDO */
+.modal-backdrop.show {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+/* CONTENEDOR */
+.modal-content {
+    background:
+        radial-gradient(circle at top left,
+            rgba(0, 140, 255, 0.12),
+            transparent 45%),
+        radial-gradient(circle at bottom right,
+            rgba(236, 31, 66, 0.1),
+            transparent 45%),
+        linear-gradient(180deg, #070b1a 0%, #050814 100%);
+
+    border: 1px solid rgba(0, 140, 255, 0.15);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.65),
+        0 0 30px rgba(0, 140, 255, 0.08);
+
+    color: #cbd6ff;
+    overflow: hidden;
+}
+
+/* HEADER */
+.modal-header {
+    border-bottom: 1px solid rgba(0, 140, 255, 0.12);
+}
+
+.modal-title {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* BOTON X */
+.btn-close {
+    filter: invert(1);
+    opacity: .8;
+    transform: scale(0.75);
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* BODY */
+.modal-body {
+    color: #cbd6ff;
+    font-size: 1rem;
+    padding: 1.5rem;
+}
+
+/* FOOTER */
+.modal-footer {
+    border-top: 1px solid rgba(0, 140, 255, 0.12);
+}
+
+/* CANCELAR */
+.modal-footer .btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cbd6ff;
+    transform: scale(1);
+}
+
+.modal-footer .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+/* CONFIRMAR */
+.modal-footer .btn-danger {
+    background: #ec1f42;
+    border-color: #ec1f42;
+    transition: all .3s ease;
+}
+
+.modal-footer .btn-danger:hover {
+    background: #ff3156;
+    border-color: #ff3156;
+
+    box-shadow:
+        0 0 12px rgba(236, 31, 66, 0.45),
+        0 0 25px rgba(236, 31, 66, 0.25);
+}
+
+/* ANIMACION */
+.modal.show .modal-dialog {
+    animation: modalPop .25s ease-out;
+}
+
+/* FOOTER */
+.modal-footer {
+    border-top: 1px solid rgba(0, 140, 255, 0.12);
+    display: flex;
+    gap: 0;
+}
+
+/* BOTONES */
+.modal-footer .btn {
+    flex: 1;
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(.95) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+}
+/* MODAL INFORMATIVO */
+.message-modal .modal-body {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 2rem;
+}

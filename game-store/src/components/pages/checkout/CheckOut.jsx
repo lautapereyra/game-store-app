@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../navbar/Navbar";
-import ConfirmModal from "../../modal/ConfirmModal";
+import ConfirmModal from "../../modal/confirmModal/ConfirmModal";
 import "./checkout.css";
 
 function CheckOut({ cart = [], clearCart }) {

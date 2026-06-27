@@ -1,18 +1,22 @@
 
 import { useContext, useRef, useState } from "react";
-import { Button, Card, Col, Form, FormGroup, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, FormGroup, Row, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { AuthContext } from "../autProvider/AuthProvider";
+import MessageModal from "../../modal/messageModal/MessageModal";
 
 const Login = () => {
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
     email: false,
     password: false,
   });
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -27,52 +31,78 @@ const Login = () => {
 
   const navigate = useNavigate();
 
- const handleSubmit = async (event) => {
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  if (!emailRef.current.value.length) {
-    setErrors({ email: true, password: false });
-    alert("Email vacío");
-    emailRef.current.focus();
-    return;
-  }
-
-  if (!password.length || password.length < 7) {
-    setErrors({ email: false, password: true });
-    alert("Password inválido");
-    passwordRef.current.focus();
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      alert(data.message);
+    if (!email.trim()) {
+      setErrors({ email: true, password: false });
+      setModalTitle("Error");
+      setModalMessage("Debe ingresar un email");
+      setShowModal(true);
+      emailRef.current.focus();
       return;
     }
 
-    alert(`Bienvenido ${data.user.userName}`);
+    if (!password.trim()) {
+      setErrors({ email: false, password: true });
+      setModalTitle("Error");
+      setModalMessage("Debe ingresar una contraseña");
+      setShowModal(true);
+      passwordRef.current.focus();
+      return;
+    }
 
-    login(data.user);
-    navigate("/home");
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-  } catch (error) {
-    console.error(error);
-    alert("Error al conectar con el servidor");
-  }
-};
+      const data = await response.json();
+
+      if (!response.ok) {
+        setModalTitle("Error");
+        setModalMessage(data.message);
+        setShowModal(true);
+
+        if (data.message === "El email no está registrado") {
+          setErrors({ email: true, password: false });
+          emailRef.current.focus();
+        }
+
+        if (data.message === "La contraseña es incorrecta") {
+          setErrors({ email: false, password: true });
+          passwordRef.current.focus();
+        }
+
+        return;
+      }
+
+      // Login exitoso
+      setModalTitle("Bienvenido");
+      setModalMessage(
+        `Bienvenido ${data.user.userName} ${data.user.userLastName}`
+      );
+      setShowModal(true);
+
+      setTimeout(() => {
+        login(data.user);
+        navigate("/home");
+      }, 2000);
+
+    } catch (error) {
+      console.error(error);
+      setModalTitle("Error");
+      setModalMessage("Error al conectar con el servidor");
+      setShowModal(true);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -109,12 +139,19 @@ const Login = () => {
             <Button type="submit" className="login-button w-100">
               Iniciar sesión
             </Button>
-             <p className="login-create-user mt-3"> No tenes usuario ?</p>
-              <Button
+            <p className="login-create-user mt-3"> No tenes usuario ?</p>
+            <Button
               className="create-user-button w-100"
               onClick={() => navigate("/register")}>
               Crear usuario
             </Button>
+            <MessageModal
+              show={showModal}
+              onHide={() => setShowModal(false)}
+              title={modalTitle}
+              message={modalMessage}
+            />
+
           </Form>
         </Card.Body>
       </Card>

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useState, useContext } from 'react'
 import { AuthContext } from "../../auth/autProvider/AuthProvider";
 import "./gameCard.css";
-import ConfirmModal from "../../modal/ConfirmModal";
+import ConfirmModal from "../../modal/confirmModal/ConfirmModal";
 
 function GameCard({ game, addToCart }) {
 
