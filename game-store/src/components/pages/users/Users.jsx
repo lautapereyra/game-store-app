@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../navbar/Navbar";
 import Footer from "../../footer/Footer.jsx"
 import "./users.css";
+import ConfirmModal from "../../modal/confirmModal/ConfirmModal.jsx";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -18,14 +19,37 @@ const Users = () => {
         fetchUsers();
     }, []);
 
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    const openDeleteModal = (user) => {
+        setSelectedUser(user);
+        setShowDeleteModal(true);
+    };
+
     // 🗑 ELIMINAR USUARIO
-    const handleDelete = (id) => {
-        fetch(`http://localhost:3000/users/${id}`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
-            .then(() => fetchUsers())
-            .catch(err => console.log(err));
+    const handleDelete = async () => {
+        if (!selectedUser) return;
+
+        try {
+            const response = await fetch(
+                `http://localhost:3000/users/${selectedUser.id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al eliminar usuario");
+            }
+
+            fetchUsers();
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setShowDeleteModal(false);
+            setSelectedUser(null);
+        }
     };
 
     // 🔁 CAMBIAR ROL
@@ -100,7 +124,7 @@ const Users = () => {
 
                                             <button
                                                 className="btn btn-danger btn-sm delete-btn"
-                                                onClick={() => handleDelete(user.id)}
+                                                onClick={() => openDeleteModal(user)}
                                             >
                                                 Eliminar
                                             </button>
@@ -112,7 +136,20 @@ const Users = () => {
                     </table>
                 </div >
             </div>
+
             <Footer />
+            <ConfirmModal
+                show={showDeleteModal}
+                onHide={() => {
+                    setShowDeleteModal(false);
+                    setSelectedUser(null);
+                }}
+                onConfirm={handleDelete}
+                title="Eliminar usuario"
+                message={`¿Estás seguro de que querés eliminar al usuario "${selectedUser?.userName}"?`}
+                confirmText="Sí, eliminar"
+                cancelText="Cancelar"
+            />
         </>
     );
 };

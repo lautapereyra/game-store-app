@@ -13,16 +13,20 @@ const ConfirmModal = ({
 }) => {
     const [isConfirming, setIsConfirming] = useState(false);
 
-    const handleConfirm = async () => {
-        if (isConfirming) return;
+const handleConfirm = async () => {
+    if (isConfirming) return;
 
-        setIsConfirming(true);
-        try {
-            await onConfirm();
-        } finally {
-            setIsConfirming(false);
-        }
-    };
+    setIsConfirming(true);
+
+    try {
+        await onConfirm();
+        onHide(); // cerrar el modal inmediatamente
+    } catch (error) {
+        console.error(error);
+    } finally {
+        setIsConfirming(false);
+    }
+};
 
     return (
         <Modal show={show} onHide={onHide} centered>

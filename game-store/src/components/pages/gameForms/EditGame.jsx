@@ -4,6 +4,7 @@ import Navbar from "../../navbar/Navbar";
 import GamesForm from "../../games/gameForm/GamesForm.jsx";
 import Footer from '../../footer/Footer.jsx'
 import "./addGame.css";
+import MessageModal from "../../modal/messageModal/MessageModal.jsx";
 
 const EditGame = () => {
 
@@ -22,6 +23,10 @@ const EditGame = () => {
     const [error, setError] =
         useState(false);
 
+    const [showModal, setShowModal] = useState(false);
+    const [modalTitle, setModalTitle] = useState("");
+    const [modalMessage, setModalMessage] = useState("");
+
     useEffect(() => {
 
         fetch(
@@ -34,52 +39,47 @@ const EditGame = () => {
 
     }, [id]);
 
-    const handleSubmit =
-        async (e) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-            e.preventDefault();
+        try {
 
-            try {
+            const response = await fetch(
+                `http://localhost:3000/games/${id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(game),
+                }
+            );
 
-                const response =
-                    await fetch(
-                        `http://localhost:3000/games/${id}`,
-                        {
-                            method:
-                                "PUT",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json",
-                            },
-
-                            body:
-                                JSON.stringify(game),
-                        }
-                    );
-
-                if (!response.ok)
-                    throw new Error();
-
-                setSuccess(true);
-
-                setTimeout(
-                    () =>
-                        navigate(
-                            "/catalog"
-                        ),
-                    1500
-                );
-
-            } catch {
-
-                setError(true);
+            if (!response.ok) {
+                throw new Error();
             }
-        };
 
-    if (!game)
-        return <p>Cargando…</p>;
+            setSuccess(true);
 
+            setModalTitle("Éxito");
+            setModalMessage("El juego fue actualizado correctamente.");
+            setShowModal(true);
+
+            setTimeout(() => {
+                navigate("/catalog");
+            }, 2000);
+
+        } catch (error) {
+
+            console.error(error);
+
+            setError(true);
+
+            setModalTitle("Error");
+            setModalMessage("No se pudo actualizar el juego.");
+            setShowModal(true);
+        }
+    };
     return (
         <>
             <Navbar />
@@ -99,6 +99,12 @@ const EditGame = () => {
 
             </div>
             <Footer />
+            <MessageModal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                title={modalTitle}
+                message={modalMessage}
+            />
         </>
     );
 };

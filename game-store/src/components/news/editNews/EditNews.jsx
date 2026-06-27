@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card } from "react-bootstrap";
 import './editNews.css'
 import Navbar from "../../navbar/Navbar";
+import MessageModal from "../../modal/messageModal/MessageModal";
 
 function EditNews() {
     const { id } = useParams();
@@ -12,6 +13,11 @@ function EditNews() {
     const [content, setContent] = useState("");
     const [image, setImage] = useState("");
     const [source, setSource] = useState("");
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalTitle, setModalTitle] = useState("");
+    const [modalMessage, setModalMessage] = useState("");
+
 
     useEffect(() => {
         fetch(`http://localhost:3000/news/${id}`)
@@ -46,84 +52,99 @@ function EditNews() {
             );
 
             if (!response.ok) {
-                throw new Error("Error al actualizar noticia");
+                throw new Error("Error al actualizar la noticia");
             }
 
-            alert("Noticia actualizada correctamente");
-            navigate("/news");
+            setModalTitle("Éxito");
+            setModalMessage("La noticia se actualizó correctamente.");
+            setShowModal(true);
+
+            setTimeout(() => {
+                navigate("/news");
+            }, 2000);
 
         } catch (error) {
             console.error(error);
-            alert("Error al actualizar noticia");
+
+            setModalTitle("Error");
+            setModalMessage("No se pudo actualizar la noticia.");
+            setShowModal(true);
         }
     };
 
     return (
         <>
-        <Navbar/>
-        <div className="edit-news-page">
-            <div className="container">
-                <Card className="edit-news-card p-4">
-                    <h2 className="edit-news-title">
-                        Editar noticia
-                    </h2>
-                    <Form onSubmit={handleSubmit}>
+            <Navbar />
+            <div className="edit-news-page">
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Título</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={title}
-                                onChange={(e) =>
-                                    setTitle(e.target.value)
-                                }
-                            />
-                        </Form.Group>
+                <div className="container">
+                    <Card className="edit-news-card p-4">
+                        <h2 className="edit-news-title">
+                            Editar noticia
+                        </h2>
+                        <Form onSubmit={handleSubmit}>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Contenido</Form.Label>
-                            <Form.Control
-                                as="textarea"
-                                rows={5}
-                                value={content}
-                                onChange={(e) =>
-                                    setContent(e.target.value)
-                                }
-                            />
-                        </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Título</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) =>
+                                        setTitle(e.target.value)
+                                    }
+                                />
+                            </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Imagen</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={image}
-                                onChange={(e) =>
-                                    setImage(e.target.value)
-                                }
-                            />
-                        </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Contenido</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={5}
+                                    value={content}
+                                    onChange={(e) =>
+                                        setContent(e.target.value)
+                                    }
+                                />
+                            </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Fuente</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={source}
-                                onChange={(e) =>
-                                    setSource(e.target.value)
-                                }
-                            />
-                        </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Imagen</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={image}
+                                    onChange={(e) =>
+                                        setImage(e.target.value)
+                                    }
+                                />
+                            </Form.Group>
 
-                        <Button
-                            className="save-news-btn"
-                            type="submit"
-                        >
-                            Guardar cambios
-                        </Button>
-                    </Form>
-                </Card>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Fuente</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={source}
+                                    onChange={(e) =>
+                                        setSource(e.target.value)
+                                    }
+                                />
+                            </Form.Group>
+
+                            <Button
+                                className="save-news-btn"
+                                type="submit"
+                            >
+                                Guardar cambios
+                            </Button>
+                        </Form>
+                    </Card>
+                </div>
             </div>
-        </div>
+            <MessageModal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                title={modalTitle}
+                message={modalMessage}
+            />
         </>
     )
 };
