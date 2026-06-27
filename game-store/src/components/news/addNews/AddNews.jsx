@@ -5,18 +5,23 @@ import Navbar from "../../navbar/Navbar";
 import MessageModal from "../../modal/messageModal/MessageModal";
 
 const AddNews = () => {
+    // Hook para navegar entre páginas
     const navigate = useNavigate();
 
+    // Estado que almacena los datos de la noticia
     const [news, setNews] = useState({
         title: "",
         source: "",
         image: "",
         content: "",
     });
+
+    // Estados para controlar el modal de mensajes
     const [showModal, setShowModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalMessage, setModalMessage] = useState("");
 
+    // Actualiza el campo modificado del formulario
     const handleChange = (e) => {
         setNews({
             ...news,
@@ -25,9 +30,11 @@ const AddNews = () => {
     };
 
     const handleSubmit = async (e) => {
+        // Evita la recarga de la página al enviar el formulario
         e.preventDefault();
 
         try {
+            // Envía la nueva noticia al backend
             const response = await fetch("http://localhost:3000/news", {
                 method: "POST",
                 headers: {
@@ -40,6 +47,7 @@ const AddNews = () => {
                 throw new Error("Error al crear la noticia");
             }
 
+            // Muestra un mensaje de éxito y redirige al listado
             setModalTitle("Éxito");
             setModalMessage("La noticia fue creada correctamente.");
             setShowModal(true);
@@ -49,6 +57,7 @@ const AddNews = () => {
             }, 2000);
 
         } catch (error) {
+            // Muestra un mensaje de error si falla la operación
             console.error(error);
 
             setModalTitle("Error");
@@ -64,6 +73,7 @@ const AddNews = () => {
                 <Card className="p-4 bg-dark text-light">
                     <h2 className="mb-4">Agregar Noticia</h2>
 
+                    {/* Formulario para crear una nueva noticia */}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label>Título</Form.Label>
@@ -115,6 +125,8 @@ const AddNews = () => {
                     </Form>
                 </Card>
             </div>
+
+            {/* Modal reutilizable para mostrar mensajes de éxito o error */}
             <MessageModal
                 show={showModal}
                 onHide={() => setShowModal(false)}

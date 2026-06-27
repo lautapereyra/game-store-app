@@ -8,18 +8,29 @@ import ConfirmModal from "../modal/confirmModal/ConfirmModal";
 import "./news.css";
 
 const News = () => {
+    // Estado que almacena todas las noticias obtenidas del backend
     const [news, setNews] = useState([]);
+
+    // Controla el estado de carga mientras se obtienen los datos
     const [loading, setLoading] = useState(true);
+
+    // Estados para el modal de eliminación
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedNews, setSelectedNews] = useState(null);
 
+    // Hook para navegación entre rutas
     const navigate = useNavigate();
+
+    // Usuario autenticado (para control de permisos)
     const { user } = useContext(AuthContext);
 
+    // Al montar el componente se obtienen todas las noticias desde el backend
     useEffect(() => {
         fetch("http://localhost:3000/news")
             .then((res) => res.json())
             .then((data) => {
+
+                // (debug) muestra datos en consola
                 data.forEach(item => {
                     console.log(
                         item.id,
@@ -36,17 +47,19 @@ const News = () => {
                 setLoading(false);
             });
     }, []);
-
+    // Abre el modal y guarda la noticia seleccionada
     const openDeleteModal = (newsItem) => {
         setSelectedNews(newsItem);
         setShowDeleteModal(true);
     };
 
+    // Cierra el modal y limpia la selección
     const closeDeleteModal = () => {
         setShowDeleteModal(false);
         setTimeout(() => setSelectedNews(null), 300);
     };
 
+    // Elimina una noticia del backend y actualiza el estado local
     const handleConfirmDelete = async () => {
         if (!selectedNews) return;
 
@@ -62,6 +75,7 @@ const News = () => {
             if (!response.ok) {
                 throw new Error("Error al eliminar noticia");
             }
+            // Actualiza la UI sin recargar la página
             setNews((prev) =>
                 prev.filter((item) => item.id !== newsToDelete.id)
             );
@@ -71,7 +85,6 @@ const News = () => {
             closeDeleteModal();
         }
     };
-
     if (loading) {
         return (
             <div className="news-loading">
@@ -97,6 +110,7 @@ const News = () => {
                     </p>
 
                     <Row>
+                        {/* Lista de noticias */}
                         {news.map((item) => (
                             <Col lg={4} md={6} className="mb-4" key={item.id}>
                                 <Card className="h-100 news-card-page">
@@ -132,6 +146,7 @@ const News = () => {
                                                 Ver más
                                             </button>
 
+                                            {/* Botones con control de roles */}
                                             {(user?.role === "ADMIN" ||
                                                 user?.role === "MODERATOR") && (
                                                     <>
@@ -167,6 +182,7 @@ const News = () => {
                 </Container>
             </div>
 
+            {/* Modal de confirmación para eliminar */}
             <ConfirmModal
                 show={showDeleteModal}
                 onHide={closeDeleteModal}

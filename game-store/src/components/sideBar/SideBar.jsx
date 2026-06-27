@@ -8,25 +8,21 @@ function Sidebar({
     setSearch,
 }) {
 
-    // 🔹 ESTADO PARA LOS GÉNEROS QUE VIENEN DE LA BD
+    // Estado local para almacenar los géneros disponibles
     const [genres, setGenres] = useState([]);
 
-    // 🔹 FETCH PARA TRAER TODOS LOS JUEGOS
+    // Carga de datos desde la API
     useEffect(() => {
 
         fetch("http://localhost:3000/games")
             .then((res) => res.json())
             .then((data) => {
-
-                // 🔹 SACAMOS LOS GÉNEROS REPETIDOS
                 const uniqueGenres = [
                     ...new Set(data.map((game) => game.genre))
                 ];
-
                 setGenres(uniqueGenres);
             })
             .catch((error) => console.error(error));
-
     }, []);
 
     return (
@@ -41,7 +37,7 @@ function Sidebar({
                 <label className="sidebar-label">
                     Buscar
                 </label>
-
+                {/* Input controlado desde el componente padre */}
                 <input
                     type="text"
                     placeholder="Buscar juego..."
@@ -52,14 +48,12 @@ function Sidebar({
 
             </div>
 
+            {/* Sección de filtrado por género */}
             <div className="sidebar-section">
-
                 <label className="sidebar-label">
                     Géneros
                 </label>
-
                 <div className="sidebar-genres">
-
                     <button
                         className={
                             selectedGenre === ""

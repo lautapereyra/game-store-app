@@ -11,30 +11,35 @@ const ConfirmModal = ({
     confirmText = "Confirmar",
     cancelText = "Cancelar"
 }) => {
+    // Estado que evita múltiples confirmaciones simultáneas
     const [isConfirming, setIsConfirming] = useState(false);
 
-const handleConfirm = async () => {
-    if (isConfirming) return;
+    // Maneja la acción de confirmación de forma segura
+    const handleConfirm = async () => {
+        if (isConfirming) return;
 
-    setIsConfirming(true);
+        setIsConfirming(true);
 
-    try {
-        await onConfirm();
-    } catch (error) {
-        console.error(error);
-    } finally {
-        setIsConfirming(false);
-    }
-};
+        try {
+            await onConfirm();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsConfirming(false);
+        }
+    };
 
     return (
         <Modal show={show} onHide={onHide} centered>
+
+            {/* Encabezado del modal con título */}
             <Modal.Header closeButton>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
-
+            {/* Mensaje principal del modal */}
             <Modal.Body>{message}</Modal.Body>
 
+            {/* Acciones del modal */}
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide} disabled={isConfirming}>
                     {cancelText}

@@ -12,8 +12,10 @@ const Home = ({
     addToCart
 }) => {
 
+    // Estado que almacena las noticias para mostrar en el home
     const [news, setNews] = useState([]);
 
+    // Al montar el componente se obtienen las noticias desde el backend
     useEffect(() => {
         fetch("http://localhost:3000/news")
             .then(res => res.json())

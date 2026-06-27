@@ -5,11 +5,16 @@ import ConfirmModal from '../modal/confirmModal/ConfirmModal';
 import './navbar.css';
 
 const Navbar = () => {
-
+    // Obtiene la información del usuario y las funciones de autenticación
     const { user, logout, isLoggedIn } = useContext(AuthContext);
+
+    // Hook para realizar la navegación entre páginas
     const navigate = useNavigate();
-    
+
+    // Controla la visualización del modal de cierre de sesión
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container custom-navbar">
@@ -49,7 +54,7 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item">
                             <NavLink to="/news" className="nav-link">
-                                noticias
+                                Noticias
                             </NavLink>
                         </li>
 
@@ -57,7 +62,7 @@ const Navbar = () => {
                     </ul>
 
                     <div className="user-section ms-3 d-flex align-items-center gap-2 flex-nowrap">
-
+                        {/* Si el usuario inició sesión muestra su nombre, el botón de cerrar sesión y el acceso al carrito */}
                         {isLoggedIn ? (
                             <>
                                 <span className="me-3 user-name">
@@ -81,6 +86,7 @@ const Navbar = () => {
                                 </button>
                             </>
                         ) : (
+                            /* Si no inició sesión muestra el botón de login */
                             <button
                                 className="btn btn-success"
                                 onClick={() => navigate("/login")}
@@ -88,6 +94,8 @@ const Navbar = () => {
                                 Iniciar sesión
                             </button>
                         )}
+
+                        {/* Menú exclusivo para administradores y moderadores */}
                         {(user?.role === "ADMIN" || user?.role === "MODERATOR") && (
                             <div className="dropdown ms-2">
                                 <button
@@ -135,6 +143,7 @@ const Navbar = () => {
                 </div>
             </div>
 
+            {/* Modal de confirmación antes de cerrar la sesión */}
             <ConfirmModal
                 show={showLogoutModal}
                 onHide={() => setShowLogoutModal(false)}

@@ -5,19 +5,22 @@ import "./gameCard.css";
 import ConfirmModal from "../../modal/confirmModal/ConfirmModal";
 
 function GameCard({ game, addToCart }) {
-
+    // Obtiene la información del usuario autenticado
     const { user, isLoggedIn } = useContext(AuthContext);
 
+    // Estados para mostrar mensajes y controlar la eliminación
     const [added, setAdded] = useState(false);
     const [gameToDelete, setGameToDelete] = useState(null);
     const [error, setError] = useState(false);
 
+    // Hook para navegar entre páginas
     const navigate = useNavigate();
 
+    // Agrega un juego al carrito verificando que el usuario esté autenticado
     const handleAdd = () => {
 
         if (!isLoggedIn) {
-
+            // Muestra un mensaje si el usuario no inicio sesión
             setError(true);
 
             setTimeout(() => {
@@ -28,7 +31,7 @@ function GameCard({ game, addToCart }) {
         }
 
         addToCart(game);
-
+        // Muestra un mensaje de confirmación
         setAdded(true);
 
         setTimeout(() => {
@@ -36,10 +39,12 @@ function GameCard({ game, addToCart }) {
         }, 2000);
     };
 
+    // Navega a la página de detalles del juego
     const handleClick = () => {
         navigate(`/game/${game.id}`);
     }
 
+    // Elimina un juego de la base de datos
     const confirmDelete = () => {
         fetch(`http://localhost:3000/games/${gameToDelete.id}`, {
             method: "DELETE"
@@ -48,6 +53,7 @@ function GameCard({ game, addToCart }) {
             .catch(err => console.log(err));
     };
 
+    // Redirige al formulario de edición
     const handleEdit = () => {
         navigate(`/games/edit/${game.id}`);
     };
@@ -55,6 +61,8 @@ function GameCard({ game, addToCart }) {
     return (
         <div className="container">
             <div className="game-card">
+
+                {/* Informacion del videojuego */}
                 <img src={game.image} alt={game.title} />
 
                 <div className="game-card-body">
@@ -100,6 +108,8 @@ function GameCard({ game, addToCart }) {
                             Debes iniciar sesión ❌
                         </p>
                     )}
+
+                    {/* Acciones visibles únicamente para administradores y moderadores */}
                     {(user?.role === "ADMIN" ||
                         user?.role === "MODERATOR") && (
 
@@ -124,6 +134,8 @@ function GameCard({ game, addToCart }) {
 
                 </div>
             </div>
+
+            {/* Modal de confirmación para eliminar un juego */}
             <ConfirmModal
                 show={gameToDelete !== null}
                 onHide={() => setGameToDelete(null)}

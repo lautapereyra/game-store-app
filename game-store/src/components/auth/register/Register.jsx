@@ -8,9 +8,13 @@ import { useContext } from "react";
 import { AuthContext } from "../autProvider/AuthProvider";
 
 const Register = () => {
-
+    // Hook para navegar entre páginas
     const navigate = useNavigate();
+
+    // Obtiene la función login desde el contexto de autenticación
     const { login } = useContext(AuthContext);
+
+    // Estados que almacenan la información del formulario
     const [userName, setUserName] = useState("");
     const [userLastName, setUserLastName] = useState("");
     const [dni, setDni] = useState("");
@@ -18,15 +22,19 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    // estados para mostrar mensajes de exito o error
     const [successToast, setSuccessToast] = useState("");
     const [error, setError] = useState("");
 
     const handleRegister = (event) => {
 
+        // Evita que el formulario recargue la pagina
         event.preventDefault();
 
+        // Limpia errores anteriores
         setError("");
 
+        // Envia los datos del nuevo usuario al backend
         fetch(
             "http://localhost:3000/register",
             {
@@ -47,12 +55,13 @@ const Register = () => {
                 }),
             }
         )
-
+            // Procesa la respuesta del servidor
             .then(async (res) => {
 
                 const data =
                     await res.json();
 
+                // Si el registro falla, lanza el mensaje recibido
                 if (!res.ok) {
                     throw new Error(
                         data.message
@@ -64,6 +73,7 @@ const Register = () => {
             })
             .then((data) => {
 
+                // Inicia sesión automáticamente luego del registro
                 login({
                     ...data.user,
 
@@ -71,20 +81,20 @@ const Register = () => {
                         data.token,
                 });
 
+                // Muestra un mensaje de éxito
                 setSuccessToast(true);
 
+                // Redirige al usuario a la página principal
                 setTimeout(() => {
-
                     navigate(
                         "/home"
                     );
-
                 }, 1000);
 
             })
 
             .catch((error) => {
-
+                // Muestra el mensaje de error recibido del servidor
                 setError(
                     error.message
                 );
@@ -99,6 +109,7 @@ const Register = () => {
                     <h2 className="register-title">Game Store</h2>
                     <p className="register-subtitle mt-3">Registre su usuario</p>
 
+                    {/* Formulario de registro de nuevos usuarios */}
                     <Form onSubmit={handleRegister}>
                         <FormGroup className="mb-4">
                             <Form.Control
@@ -161,14 +172,14 @@ const Register = () => {
                             Crear usuario
                         </Button>
                     </Form>
-                    {/* 🔹 MENSAJE DE ÉXITO */}
+                    {/* Mensaje de exito al registrar el usuario */}
                     {successToast && (
                         <p className="mt-3 text-success">
                             Usuario Creado Correctamente ✅
                         </p>
                     )}
 
-                    {/* 🔹 MENSAJE DE ERROR */}
+                    {/* mensaje de error devuelto por el servidor */}
                     {error && (
                         <p className="mt-3 text-danger">
                             {error}

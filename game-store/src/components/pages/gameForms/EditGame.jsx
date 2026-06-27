@@ -7,28 +7,26 @@ import "./addGame.css";
 import MessageModal from "../../modal/messageModal/MessageModal.jsx";
 
 const EditGame = () => {
+    // Obtiene el ID del juego desde la URL
+    const { id } = useParams();
 
-    const { id } =
-        useParams();
+    // Hook para navegar entre rutas
+    const navigate = useNavigate();
 
-    const navigate =
-        useNavigate();
+    // Estado que almacena el juego a editar (inicialmente null hasta que se carga)
+    const [game, setGame] = useState(null);
 
-    const [game, setGame] =
-        useState(null);
+    // Estados de feedback
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
 
-    const [success, setSuccess] =
-        useState(false);
-
-    const [error, setError] =
-        useState(false);
-
+    // Estado del modal de mensajes
     const [showModal, setShowModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalMessage, setModalMessage] = useState("");
 
+    // Al montar el componente se obtiene el juego por ID para precargar el formulario
     useEffect(() => {
-
         fetch(
             `http://localhost:3000/games/${id}`
         )
@@ -39,11 +37,10 @@ const EditGame = () => {
 
     }, [id]);
 
+    // Envía los cambios del juego al backend
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-
             const response = await fetch(
                 `http://localhost:3000/games/${id}`,
                 {
@@ -87,7 +84,7 @@ const EditGame = () => {
             <div
                 className="add-game-container"
             >
-
+                {/* Formulario reutilizado para editar el juego */}
                 <GamesForm
                     game={game}
                     setGame={setGame}
@@ -99,6 +96,8 @@ const EditGame = () => {
 
             </div>
             <Footer />
+
+            {/* Modal de feedback */}
             <MessageModal
                 show={showModal}
                 onHide={() => setShowModal(false)}

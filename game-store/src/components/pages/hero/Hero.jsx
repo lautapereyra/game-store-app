@@ -12,19 +12,26 @@ import bg4 from "../../../assets/hero4.jpg";
 
 const Hero = () => {
 
+    // Array de imágenes del banner principal
     const images = [bg1, bg2, bg3, bg4];
+
+    // Estado que controla que imagen se muestra actualmente
     const [currentImage, setCurrentImage] = useState(0);
 
+    // Cambia la imagen de fondo cada 7 segundos
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % images.length);
         }, 7000);
 
+        // Limpieza del intervalo al desmontar el componente
         return () => clearInterval(interval);
     }, []);
 
+    // Referencia al elemento donde se aplica la animacion de texto
     const typedRef = useRef(null);
 
+    // Inicializa la animacion de texto tipo "maquina de escribir"
     useEffect(() => {
         const typed = new Typed(typedRef.current, {
             strings: [
@@ -40,9 +47,11 @@ const Hero = () => {
             cursorChar: "|",
         });
 
+        // Limpieza de la instancia al desmontar el componente
         return () => typed.destroy();
     }, []);
 
+    // Scroll hacia la sección "top-rated"
     const scrollToTopRated = () => {
         const section = document.getElementById("top-rated");
 
@@ -56,6 +65,7 @@ const Hero = () => {
 
     return (
         <section className="hero-section">
+            {/* Slider de imágenes de fondo */}
             <div className="hero-background">
                 {images.map((img, index) => (
                     <div
@@ -70,6 +80,8 @@ const Hero = () => {
             </div>
             <div className="hero-overlay"></div>
             <div className="container text-center">
+
+                {/* Titulo con texto animado */}
                 <h1 className="hero-title">
                     Bienvenido a{" "}
                     <span className="brand" ref={typedRef}></span>

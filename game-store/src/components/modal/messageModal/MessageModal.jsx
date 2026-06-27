@@ -14,10 +14,12 @@ const MessageModal = ({
             centered
             dialogClassName="message-modal"
         >
+            {/* Encabezado del modal con título y botón de cierre */}
             <Modal.Header closeButton>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
 
+            {/* Contenido principal del mensaje */}
             <Modal.Body>
                 {message}
             </Modal.Body>

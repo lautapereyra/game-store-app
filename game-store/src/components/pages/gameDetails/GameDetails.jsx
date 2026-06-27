@@ -1,4 +1,3 @@
-// 🔹 IMPORTAMOS useEffect
 import React, { useEffect, useState } from 'react'
 import Footer from "../../footer/Footer"
 import Navbar from '../../navbar/Navbar';
@@ -8,18 +7,18 @@ import { useParams } from 'react-router';
 import './gamedetails.css'
 
 const GameDetails = ({ addToCart, loggedIn }) => {
-
+  // Obtiene el ID del juego desde la URL
   const { id } = useParams();
 
-  // ESTADO DEL JUEGO
+  // Estado que almacena el juego obtenido del backend
   const [game, setGame] = useState(null);
 
+  // Estado para mostrar mensajes de feedback al usuario
   const [added, setAdded] = useState(false);
   const [error, setError] = useState(false);
 
-  //FETCH PARA TRAER EL JUEGO DESDE EL BACKEND
+  // Al montar el componente obtiene los datos del juego según su ID
   useEffect(() => {
-
     fetch(`http://localhost:3000/games/${id}`)
       .then((res) => res.json())
       .then((data) => setGame(data))
@@ -27,11 +26,12 @@ const GameDetails = ({ addToCart, loggedIn }) => {
 
   }, [id]);
 
-  // 🔹 EVITA QUE ROMPA CUANDO game ES null
+  // Evita errores de renderizado antes de que llegue la data
   if (!game) {
     return <h1>Cargando...</h1>;
   }
 
+  // Agrega el juego al carrito solo si el usuario está logueado
   const handleAdd = () => {
 
     if (!loggedIn) {

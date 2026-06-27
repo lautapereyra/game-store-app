@@ -5,9 +5,19 @@ import "./users.css";
 import ConfirmModal from "../../modal/confirmModal/ConfirmModal.jsx";
 
 const Users = () => {
+    // Lista de usuarios obtenidos desde el backend
     const [users, setUsers] = useState([]);
+
+    // Estado del buscador para filtrar usuarios en la tabla
     const [search, setSearch] = useState("");
 
+    // Usuario seleccionado para eliminar
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    // Control del modal de confirmación de eliminación
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    // Función para obtener usuarios desde la API
     const fetchUsers = () => {
         fetch("http://localhost:3000/users")
             .then(res => res.json())
@@ -15,39 +25,38 @@ const Users = () => {
             .catch(err => console.log(err));
     };
 
+    // Se ejecuta una vez al montar el componente
     useEffect(() => {
         fetchUsers();
     }, []);
 
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
-
+    // Abre el modal de eliminación y guarda el usuario seleccionado
     const openDeleteModal = (user) => {
         setSelectedUser(user);
         setShowDeleteModal(true);
     };
 
-    // 🗑 ELIMINAR USUARIO
-const handleDelete = async () => {
-    if (!selectedUser) return;
+    // Elimina un usuario del backend
+    const handleDelete = async () => {
+        if (!selectedUser) return;
 
-    const response = await fetch(
-        `http://localhost:3000/users/${selectedUser.id}`,
-        {
-            method: "DELETE",
+        const response = await fetch(
+            `http://localhost:3000/users/${selectedUser.id}`,
+            {
+                method: "DELETE",
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Error");
         }
-    );
 
-    if (!response.ok) {
-        throw new Error("Error");
-    }
+        setShowDeleteModal(false);
+        setSelectedUser(null);
 
-    setShowDeleteModal(false);
-    setSelectedUser(null);
+    };
 
-    // fetchUsers();
-};
-    // 🔁 CAMBIAR ROL
+    // Cambia el rol del usuario (USER, ADMIN o MODERATOR)
     const handleRoleChange = (id, newRole) => {
         fetch(`http://localhost:3000/users/${id}`, {
             method: "PUT",
@@ -60,7 +69,8 @@ const handleDelete = async () => {
             .then(() => fetchUsers())
             .catch(err => console.log(err));
     };
-    // buscador de usuarios
+
+    // Filtro de usuarios en frontend segun busqueda
     const filteredUsers = users.filter(user =>
         (user.nombre || user.userName || "")
             .toLowerCase()

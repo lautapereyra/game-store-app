@@ -3,8 +3,10 @@ import GameCard from "../games/gameCard/GameCard";
 import "./topRated.css";
 
 function TopRated({ addToCart }) {
+    // Estado que almacena todos los juegos obtenidos desde la API
     const [games, setGames] = useState([]);
 
+    // Carga inicial de datos desde el backend
     useEffect(() => {
         fetch("http://localhost:3000/games")
             .then(res => res.json())
@@ -12,6 +14,7 @@ function TopRated({ addToCart }) {
             .catch(err => console.log(err));
     }, []);
 
+    // Procesamiento de datos: se ordenan los juegos por rating de mayor a menor y se seleccionan los 4 mejores
     const topRated = [...games]
         .sort((a, b) => b.rating - a.rating)
         .slice(0, 4);
@@ -24,7 +27,7 @@ function TopRated({ addToCart }) {
                     Mejores puntuados
                 </h2>
                 <p className="description-text">Descubre los títulos mejor valorados por la comunidad!</p>
-
+                {/* Grid de juegos mejor puntuados */}
                 <div className="catalog-grid">
                     {topRated.map(game => (
                         <GameCard

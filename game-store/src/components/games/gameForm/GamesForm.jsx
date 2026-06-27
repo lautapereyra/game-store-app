@@ -1,6 +1,7 @@
 import { Button, Card, Form, FormGroup } from "react-bootstrap";
 import Navbar from "../../navbar/Navbar";
 
+// Listas utilizadas para generar las opciones de los select
 const genres = [
     "Acción",
     "Aventura",
@@ -35,7 +36,7 @@ const GamesForm = ({
     error,
     isEdit,
 }) => {
-
+    // Actualiza dinámicamente el campo modificado del formulario
     const handleChange = (field, value) => {
         setGame({
             ...game,
@@ -50,13 +51,14 @@ const GamesForm = ({
             <Card className="add-game-card">
 
                 <Card.Body>
-
+                    {/* El título cambia según si se agrega o edita un juego */}
                     <h2>
                         {isEdit
                             ? "Editar juego"
                             : "Agregar juego"}
                     </h2>
 
+                    {/* Formulario reutilizable para crear o editar videojuegos */}
                     <Form onSubmit={onSubmit}>
 
                         <FormGroup className="mb-3">
@@ -213,13 +215,13 @@ const GamesForm = ({
                         </Button>
 
                     </Form>
-
+                    {/* Mensaje de éxito */}
                     {success &&
                         <p className="text-success mt-3">
                             Guardado correctamente ✅
                         </p>
                     }
-
+                    {/* Mensaje de error */}
                     {error &&
                         <p className="text-danger mt-3">
                             Error ❌

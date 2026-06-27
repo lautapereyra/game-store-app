@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
 import Navbar from "../../navbar/Navbar";
 import GameForm from "../../games/gameForm/GamesForm";
-
 import MessageModal from "../../modal/messageModal/MessageModal";
-
-
 import "./addGame.css";
 
 const AddGame = () => {
 
+    // Hook para navegar entre rutas
     const navigate = useNavigate();
 
+    // Estructura inicial del formulario (valores vacíos)
     const emptyGame = {
         title: "",
         description: "",
@@ -24,24 +22,22 @@ const AddGame = () => {
         gameMode: "",
     };
 
-    const [game, setGame] =
-        useState(emptyGame);
+    // Estado del formulario del juego
+    const [game, setGame] = useState(emptyGame);
 
-    const [success, setSuccess] =
-        useState(false);
+    // Estados para feedback visual
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
 
-    const [error, setError] =
-        useState(false);
-
+    // Estado del modal de mensajes
     const [showModal, setShowModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalMessage, setModalMessage] = useState("");
 
+    // Envía el nuevo juego al backend
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-
             const response = await fetch(
                 "http://localhost:3000/games",
                 {
@@ -86,6 +82,7 @@ const AddGame = () => {
             <div
                 className="add-game-container"
             >
+                {/* Formulario de alta de juego */}
                 <GameForm
                     game={game}
                     setGame={setGame}
@@ -95,6 +92,7 @@ const AddGame = () => {
                     isEdit={false}
                 />
             </div>
+            {/* Modal de feedback */}
             <MessageModal
                 show={showModal}
                 onHide={() => setShowModal(false)}

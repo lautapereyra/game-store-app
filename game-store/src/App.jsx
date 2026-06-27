@@ -24,9 +24,16 @@ import Checkout from './components/pages/checkout/CheckOut';
 
 
 function App() {
+  // Estado global del carrito de compras
   const [cart, setCart] = useState([]);
+
+  // Indica cuaando se terminó de cargar el carrito desde localStorage
   const [loaded, setLoaded] = useState(false);
+
+  // Obtiene el usuario autenticado desde el contexto
   const { user } = useContext(AuthContext);
+
+  // Carga el carrito correspondiente al usuario al iniciar sesion
   useEffect(() => {
     if (!user) {
       setCart([]);
@@ -45,6 +52,7 @@ function App() {
     setLoaded(true);
   }, [user]);
 
+  // Guarda automaticamente el carrito en localStorage cuando cambia
   useEffect(() => {
     if (loaded && user) {
       localStorage.setItem(
@@ -54,14 +62,17 @@ function App() {
     }
   }, [cart, loaded, user]);
 
+  // Agrega un juego al carrito
   const addToCart = (game) => {
     setCart([...cart, game]);
   };
 
+  // Elimina un juego del carrito segun su posición
   const deleteGame = (indexToDelete) => {
     setCart(cart.filter((_, index) => index !== indexToDelete));
   };
 
+  // Vacia completamente el carrito
   const clearCart = () => {
     setCart([]);
   };
@@ -70,7 +81,7 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Públicas */}
+        {/* Rutas públicas: accesibles para cualquier usuario */}
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -86,7 +97,7 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetails />} />
 
-        {/* Protegidas */}
+        {/* Rutas protegidas: requieren un usuario autenticado */}
         <Route
           path="/cart/*"
           element={
@@ -94,7 +105,10 @@ function App() {
               <Carrito cart={cart}
                 deleteGame={deleteGame}
                 clearCart={clearCart} />
-            </Protected>} />
+            </Protected>}
+        />
+
+        {/* Solo ADMIN y MODERATOR pueden gestionar videojuegos */}
         <Route
           path="/addGame"
           element={
@@ -114,6 +128,8 @@ function App() {
             </Protected>
           }
         />
+
+        {/* Solo ADMIN y MODERATOR pueden administrar noticias */}
         <Route
           path="/news/add"
           element={
@@ -130,6 +146,8 @@ function App() {
             </Protected>
           }
         />
+
+        {/* Solo el ADMIN puede gestionar usuarios */}
         <Route
           path="/users"
           element={
@@ -138,8 +156,8 @@ function App() {
             </Protected>
           }
         />
-        <Route path="*" element={<NotFound />} />
 
+        {/* Checkout accesible solo para usuarios autenticados */}
         <Route
           path="/checkout"
           element={
@@ -151,6 +169,9 @@ function App() {
             </Protected>
           }
         />
+
+        {/* Página de error para rutas inexistentes */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -6,19 +6,24 @@ import Navbar from "../../navbar/Navbar";
 import MessageModal from "../../modal/messageModal/MessageModal";
 
 function EditNews() {
+    // Obtiene el id de la noticia desde la URL
     const { id } = useParams();
+
+    // Hook para navegar entre páginas
     const navigate = useNavigate();
 
+    // Estados que almacenan los datos de la noticia
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [image, setImage] = useState("");
     const [source, setSource] = useState("");
 
+    // Estados para controlar el modal de mensajes
     const [showModal, setShowModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalMessage, setModalMessage] = useState("");
 
-
+    // Al cargar el componente obtiene los datos de la noticia para completar el formulario de edición
     useEffect(() => {
         fetch(`http://localhost:3000/news/${id}`)
             .then(res => res.json())
@@ -32,9 +37,12 @@ function EditNews() {
     }, [id]);
 
     const handleSubmit = async (e) => {
+
+        // Evita la recarga de la página
         e.preventDefault();
 
         try {
+            // Envía los cambios al backend mediante una petición PUT
             const response = await fetch(
                 `http://localhost:3000/news/${id}`,
                 {
@@ -50,11 +58,11 @@ function EditNews() {
                     }),
                 }
             );
-
             if (!response.ok) {
                 throw new Error("Error al actualizar la noticia");
             }
 
+            // Muestra un mensaje de éxito y vuelve al listado
             setModalTitle("Éxito");
             setModalMessage("La noticia se actualizó correctamente.");
             setShowModal(true);
@@ -64,6 +72,7 @@ function EditNews() {
             }, 2000);
 
         } catch (error) {
+            // Muestra un mensaje si ocurre un error
             console.error(error);
 
             setModalTitle("Error");
@@ -82,6 +91,7 @@ function EditNews() {
                         <h2 className="edit-news-title">
                             Editar noticia
                         </h2>
+                        {/* Formulario para editar una noticia existente */}
                         <Form onSubmit={handleSubmit}>
 
                             <Form.Group className="mb-3">
@@ -139,6 +149,8 @@ function EditNews() {
                     </Card>
                 </div>
             </div>
+
+            {/* Modal reutilizable para informar el resultado de la operación */}
             <MessageModal
                 show={showModal}
                 onHide={() => setShowModal(false)}

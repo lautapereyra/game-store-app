@@ -3,6 +3,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../auth/autProvider/AuthProvider";
 
 const NewsCard = ({ news, onViewMore, onEdit, onDelete }) => {
+
+    // Obtiene el usuario autenticado para controlar qué acciones puede realizar
     const { user } = useContext(AuthContext);
     return (
         <div className="news-card">
@@ -37,6 +39,7 @@ const NewsCard = ({ news, onViewMore, onEdit, onDelete }) => {
                         Ver más
                     </button>
 
+                    {/* Opciones visibles solo para administradores y moderadores */}
                     {(user?.role === "ADMIN" || user?.role === "MODERATOR") && (
                         <>
                             <button
