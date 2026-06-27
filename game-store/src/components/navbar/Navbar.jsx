@@ -8,6 +8,7 @@ const Navbar = () => {
 
     const { user, logout, isLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
+    
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">

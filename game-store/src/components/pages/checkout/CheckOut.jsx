@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../navbar/Navbar";
-import ConfirmModal from "../../modal/confirmModal/ConfirmModal";
 import "./checkout.css";
+import MessageModal from "../../modal/messageModal/MessageModal";
 
 function CheckOut({ cart = [], clearCart }) {
 
     const navigate = useNavigate();
 
-    const [showModal, setShowModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [success, setSuccess] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -47,15 +47,14 @@ function CheckOut({ cart = [], clearCart }) {
         formData.city.trim() &&
         formData.address.trim() &&
         formData.postalCode.trim();
-
     const handlePurchase = () => {
-
-        setShowModal(false);
         setSuccess(true);
+        setShowSuccessModal(true);
 
         setTimeout(() => {
-            clearCart();
+            setShowSuccessModal(false);
             setSuccess(false);
+            clearCart();
             navigate("/catalog");
         }, 2000);
     };
@@ -111,7 +110,7 @@ function CheckOut({ cart = [], clearCart }) {
 
                         <button
                             disabled={!formValid || cart.length === 0}
-                            onClick={() => setShowModal(true)}
+                            onClick={handlePurchase}
                         >
                             Confirmar compra
                         </button>
@@ -119,13 +118,23 @@ function CheckOut({ cart = [], clearCart }) {
                     </div>
                 </div>
 
-                <ConfirmModal
-                    show={showModal}
-                    onHide={() => setShowModal(false)}
-                    onConfirm={handlePurchase}
-                    title="Confirmar compra"
-                    message={`Total a pagar: $${total}`}
-                    confirmText="Pagar"
+                <MessageModal
+                    show={showSuccessModal}
+                    onHide={() => setShowSuccessModal(false)}
+                    title="🎉 Compra realizada"
+                    message={
+                        <>
+                            <p>Gracias por comprar en <strong>Game Store</strong>.</p>
+
+                            <p>
+                                Tu compra fue realizada correctamente.
+                            </p>
+
+                            <h5 className="mt-3">
+                                Total abonado: ${total}
+                            </h5>
+                        </>
+                    }
                 />
 
             </div>

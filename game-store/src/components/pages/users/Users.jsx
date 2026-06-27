@@ -28,30 +28,25 @@ const Users = () => {
     };
 
     // 🗑 ELIMINAR USUARIO
-    const handleDelete = async () => {
-        if (!selectedUser) return;
+const handleDelete = async () => {
+    if (!selectedUser) return;
 
-        try {
-            const response = await fetch(
-                `http://localhost:3000/users/${selectedUser.id}`,
-                {
-                    method: "DELETE",
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error("Error al eliminar usuario");
-            }
-
-            fetchUsers();
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setShowDeleteModal(false);
-            setSelectedUser(null);
+    const response = await fetch(
+        `http://localhost:3000/users/${selectedUser.id}`,
+        {
+            method: "DELETE",
         }
-    };
+    );
 
+    if (!response.ok) {
+        throw new Error("Error");
+    }
+
+    setShowDeleteModal(false);
+    setSelectedUser(null);
+
+    // fetchUsers();
+};
     // 🔁 CAMBIAR ROL
     const handleRoleChange = (id, newRole) => {
         fetch(`http://localhost:3000/users/${id}`, {
@@ -146,7 +141,8 @@ const Users = () => {
                 }}
                 onConfirm={handleDelete}
                 title="Eliminar usuario"
-                message={`¿Estás seguro de que querés eliminar al usuario "${selectedUser?.userName}"?`}
+                message={`¿Estás seguro de que querés eliminar al usuario "${selectedUser?.nombre || selectedUser?.userName
+                    }"?`}
                 confirmText="Sí, eliminar"
                 cancelText="Cancelar"
             />

@@ -20,7 +20,6 @@ const handleConfirm = async () => {
 
     try {
         await onConfirm();
-        onHide(); // cerrar el modal inmediatamente
     } catch (error) {
         console.error(error);
     } finally {
