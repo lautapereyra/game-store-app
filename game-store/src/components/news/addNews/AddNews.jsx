@@ -3,7 +3,7 @@ import { Card, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../navbar/Navbar";
 import MessageModal from "../../modal/messageModal/MessageModal";
-
+import './AddNews.css'
 const AddNews = () => {
     // Hook para navegar entre páginas
     const navigate = useNavigate();
@@ -69,8 +69,8 @@ const AddNews = () => {
     return (
         <>
             <Navbar />
-            <div className="container mt-5">
-                <Card className="p-4 bg-dark text-light">
+            <div className="add-news-container container mt-5">
+                <Card className="add-news-card p-4">
                     <h2 className="mb-4">Agregar Noticia</h2>
 
                     {/* Formulario para crear una nueva noticia */}
@@ -119,7 +119,10 @@ const AddNews = () => {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button
+                            className="add-news-btn"
+                            type="submit"
+                        >
                             Guardar Noticia
                         </Button>
                     </Form>

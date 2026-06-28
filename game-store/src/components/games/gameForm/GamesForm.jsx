@@ -1,5 +1,6 @@
 import { Button, Card, Form, FormGroup } from "react-bootstrap";
 import Navbar from "../../navbar/Navbar";
+import './gamesForm.css'
 
 // Listas utilizadas para generar las opciones de los select
 const genres = [
