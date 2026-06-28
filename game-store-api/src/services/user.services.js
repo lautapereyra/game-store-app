@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 
-// CREATE USER
+// Creacion de usuarios
 export const createUser = async (req, res) => {
 
     const {
@@ -30,8 +30,28 @@ export const createUser = async (req, res) => {
         });
     }
 
-    try {
+    // VALIDAR DNI 
+     if (!/^\d{7,8}$/.test(dni)) {
+        return res.status(400).json({
+            message: "El DNI debe contener solo números y tener entre 7 y 8 dígitos.",
+        });
+    }
+    // NOMBRE CON SOLO LETRAS
+if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(userName)) {
+    return res.status(400).json({
+        message: "El nombre solo puede contener letras.",
+    });
+}
+    //VALIDAR APELLIDO
+if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(userLastName)) {
+    return res.status(400).json({
+        message: "El apellido solo puede contener letras.",
+    });
+}
 
+    try {
+        
+        //USUARIO CON DNI YA REGISTRADO
         const existingUser =
             await User.findOne({
                 where: {
@@ -45,6 +65,7 @@ export const createUser = async (req, res) => {
                     "Ya hay un usuario registrado con ese DNI",
             });
         }
+        //USUARIO CON EMAIL YA REGISTRADO
         const existingEmail =
             await User.findOne({
                 where: { email }
@@ -56,7 +77,7 @@ export const createUser = async (req, res) => {
                     "Ya hay un usuario registrado con ese email",
             });
         }
-
+        // HASHEO DE PASSWORD NO TOCAR FUNCIONA
         const hashedPassword =
             await bcrypt.hash(
                 password,
@@ -121,7 +142,7 @@ export const createUser = async (req, res) => {
     } catch (error) {
 
         console.error(
-            "ERROR CREATE USER:",
+            "Error al crear usuario",
             error
         );
 
@@ -143,6 +164,7 @@ export const loginUser =
             password,
         } = req.body;
 
+        //BUSCAR USUARIO POR EMAIL
         try {
             const user =
                 await User.findOne({
@@ -155,7 +177,7 @@ export const loginUser =
                     message: "El email no está registrado",
                 });
             }
-
+            //VALIDAR CONTRASEÑA POR COMPARACION
             const validPassword = await bcrypt.compare(
                 password,
                 user.password
@@ -204,7 +226,7 @@ export const loginUser =
     };
 
 
-// GET USERS
+// Obtener Usuarios
 export const getUsers =
     async (req, res) => {
         try {
@@ -222,7 +244,7 @@ export const getUsers =
     };
 
 
-// GET USER
+// Obtener Usuario
 export const getUser =
     async (req, res) => {
 
@@ -234,7 +256,7 @@ export const getUser =
             if (!user) {
                 return res.status(404).json({
                     message:
-                        "User not found",
+                        "Usuario no encontrado",
                 });
             }
             res.json(user);
@@ -250,7 +272,7 @@ export const getUser =
     };
 
 
-// UPDATE
+// Actualizar usuario
 export const updateUser =
     async (req, res) => {
 
@@ -262,7 +284,7 @@ export const updateUser =
             if (!user) {
                 return res.status(404).json({
                     message:
-                        "User not found",
+                        "Usuario no encontrado",
                 });
             }
             await user.update(
@@ -281,7 +303,7 @@ export const updateUser =
     };
 
 
-// DELETE
+// Borrar usuario
 export const deleteUser =
     async (req, res) => {
 
@@ -293,13 +315,13 @@ export const deleteUser =
             if (!user) {
                 return res.status(404).json({
                     message:
-                        "User not found",
+                        "Usuario no encontrado",
                 });
             }
             await user.destroy();
             res.json({
                 message:
-                    "User deleted successfully",
+                    "Usuario eliminado correctamente",
             });
 
         } catch (error) {

@@ -1,22 +1,22 @@
 import { Game } from '../models/Game.js';
 
-
+// Obtener Jugos
 export const findGames = async (req, res) => {
     const games = await Game.findAll();
     res.json(games);
 };
-
+//Obtener 1 juego
 export const findGame = async (req, res) => {
     const { id } = req.params;
     const game = await Game.findByPk(id);
 
     if (!game) {
-        return res.status(404).send({ message: "Game not found" });
+        return res.status(404).send({ message: "Juego no encontrado" });
     }
 
     res.json(game);
 };
-
+//Crear Juego
 export const createGame = async (req, res) => {
     const {
         title,
@@ -46,7 +46,7 @@ export const createGame = async (req, res) => {
     });
     res.json(newGame);
 };
-
+//Editar Juego
 export const editGame = async (req, res) => {
 
     const { id } = req.params;
@@ -85,7 +85,7 @@ export const editGame = async (req, res) => {
 
     res.json(game);
 };
-
+//Eliminar Juego
 export const deleteGame = async (req, res) => {
     const { id } = req.params;
     const game = await Game.findByPk(id);

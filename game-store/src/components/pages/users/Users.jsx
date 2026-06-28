@@ -40,20 +40,30 @@ const Users = () => {
     const handleDelete = async () => {
         if (!selectedUser) return;
 
-        const response = await fetch(
-            `http://localhost:3000/users/${selectedUser.id}`,
-            {
-                method: "DELETE",
+        try {
+            const response = await fetch(
+                `http://localhost:3000/users/${selectedUser.id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error");
             }
-        );
 
-        if (!response.ok) {
-            throw new Error("Error");
+            // Cerrar el modal primero
+            setShowDeleteModal(false);
+            setSelectedUser(null);
+
+            // Esperar al siguiente ciclo de render sino se congela la pagina 
+            setTimeout(() => {
+                fetchUsers();
+            }, 0);
+
+        } catch (error) {
+            console.log(error);
         }
-
-        setShowDeleteModal(false);
-        setSelectedUser(null);
-
     };
 
     // Cambia el rol del usuario (USER, ADMIN o MODERATOR)

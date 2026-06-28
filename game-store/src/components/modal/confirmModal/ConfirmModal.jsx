@@ -30,7 +30,7 @@ const ConfirmModal = ({
     };
 
     return (
-        <Modal show={show} onHide={onHide} centered>
+        <Modal show={show} onHide={onHide} centered animation={false}>
 
             {/* Encabezado del modal con título */}
             <Modal.Header closeButton>
